@@ -1,5 +1,9 @@
 package ae.rakbank.eventmanagementservice.controller.advice;
 
+import ae.rakbank.eventmanagementservice.exceptions.EventCreationException;
+import ae.rakbank.eventmanagementservice.exceptions.EventNotFoundException;
+import ae.rakbank.eventmanagementservice.exceptions.EventUpdateException;
+import ae.rakbank.eventmanagementservice.exceptions.VenueSlotNotAvailableException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -33,4 +37,46 @@ public class ControllerAdvice {
        return  problemDetail;
 
     }
+
+    @ExceptionHandler(VenueSlotNotAvailableException.class)
+    public ProblemDetail handleVenueSlotNotAvailableException(VenueSlotNotAvailableException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.CONFLICT);
+        problemDetail.setType(URI.create(request.getRequestURL().toString()));
+        problemDetail.setDetail(ex.getMessage());
+        return problemDetail;
+    }
+
+
+    @ExceptionHandler(Exception.class)
+    public ProblemDetail handleGeneralExceptions(Exception ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        problemDetail.setType(URI.create(request.getRequestURL().toString()));
+        problemDetail.setDetail("An unexpected error occurred: " + ex.getMessage());
+        return problemDetail;
+    }
+
+    @ExceptionHandler(EventNotFoundException.class)
+    public ProblemDetail handleEventNotFoundException(EventNotFoundException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        problemDetail.setType(URI.create(request.getRequestURL().toString()));
+        problemDetail.setDetail(ex.getMessage());
+        return problemDetail;
+    }
+
+    @ExceptionHandler(EventCreationException.class)
+    public ProblemDetail handleEventCreationException(EventCreationException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        problemDetail.setType(URI.create(request.getRequestURL().toString()));
+        problemDetail.setDetail(ex.getMessage());
+        return problemDetail;
+    }
+
+    @ExceptionHandler(EventUpdateException.class)
+    public ProblemDetail handleEventUpdateException(EventUpdateException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        problemDetail.setType(URI.create(request.getRequestURL().toString()));
+        problemDetail.setDetail(ex.getMessage());
+        return problemDetail;
+    }
+
 }

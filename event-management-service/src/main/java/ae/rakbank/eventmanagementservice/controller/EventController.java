@@ -1,17 +1,24 @@
 package ae.rakbank.eventmanagementservice.controller;
 
 import ae.rakbank.eventmanagementservice.dtos.request.EventRequest;
+import ae.rakbank.eventmanagementservice.dtos.response.EventResponse;
+import ae.rakbank.eventmanagementservice.dtos.response.Response;
+import ae.rakbank.eventmanagementservice.dtos.response.ResponseHandler;
+import ae.rakbank.eventmanagementservice.exceptions.EventNotFoundException;
+import ae.rakbank.eventmanagementservice.mapper.EventMapper;
 import ae.rakbank.eventmanagementservice.model.Event;
 import ae.rakbank.eventmanagementservice.service.EventService;
 import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/events")
+@Slf4j
 public class EventController {
 
     private final EventService eventService;
@@ -20,12 +27,54 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @PostMapping
-    public ResponseEntity<Event> createEvent(@Valid  @RequestBody  EventRequest event) {
-
-
-        return null;
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<EventResponse> createEvent(@Valid @RequestBody EventRequest event) {
+        log.info("Creating event: {}", event);
+        var createdEvent = eventService.createEvent(event);
+        var eventDto = EventMapper.toEventResponse(createdEvent);
+        log.info("Event created successfully: {}", eventDto);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(eventDto);
     }
+
+    @GetMapping(path = "{eventId}")
+    public ResponseEntity<EventResponse> getEventById(@PathVariable("eventId") Long id) {
+        log.info("Fetching event with id: {}", id);
+        Event eventById = eventService.getEventById(id)
+                .orElseThrow(() -> {
+                    log.warn("Event with id {} not found", id);
+                    return new EventNotFoundException(String.format("event with %s having %d value not found", "id", id));
+                });
+        log.info("Event retrieved successfully: {}", eventById);
+        return new ResponseEntity<>(EventMapper.toEventResponse(eventById), HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<EventResponse>> searchEvent(@RequestParam("name") String name,
+                                                           @RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
+                                                           @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        log.info("Searching events by name: {} (Page: {}, Size: {})", name, pageNo, pageSize);
+        Page<EventResponse> events = eventService.searchByName(pageNo, pageSize, name);
+        log.info("Found {} events", events.getTotalElements());
+        return new ResponseEntity<>(events, HttpStatus.OK);
+    }
+
+    @PutMapping
+    public ResponseEntity<EventResponse> updateEvent(@RequestParam("eventId") Long eventId,
+                                                      @RequestBody EventRequest eventRequest) {
+        Event updateEvent = eventService.updateEvent(eventId, eventRequest);
+
+        return new ResponseEntity<>(EventMapper.toEventResponse(updateEvent), HttpStatus.OK);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteEvent(@PathVariable("eventId") Long eventId) {
+        String message = "Event successfully deleted.";
+        eventService.deleteEvent(eventId);
+        return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+    }
+
+
 
 
 }

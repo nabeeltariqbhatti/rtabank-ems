@@ -10,7 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Response<T> {
-    private boolean success;
-    private List<T> data;
+    private T data;
     private String message;
 }

@@ -1,10 +1,9 @@
-package ae.rakbank.eventmanagementservice.model;
+package ae.rakbank.eventbookingservice.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 
 import java.time.LocalDateTime;
 
