@@ -1,5 +1,6 @@
 package ae.rakbank.eventmanagementservice.mapper;
 
+import ae.rakbank.eventmanagementservice.dtos.event.UpdateEvent;
 import ae.rakbank.eventmanagementservice.dtos.request.EventRequest;
 import ae.rakbank.eventmanagementservice.dtos.response.EventResponse;
 import ae.rakbank.eventmanagementservice.model.Event;
@@ -55,6 +56,17 @@ public class EventMapper {
                 .tags(event.getTags())
                 .status(event.getStatus().name())
                 .stopBookingsBeforeMinutes(event.getStopBookingsBeforeMinutes())
+                .build();
+    }
+
+    public static UpdateEvent toUpdateEvent(Event event) {
+        return UpdateEvent.builder()
+                .code(event.getCode())
+                .status(Event.Status.valueOf(event.getStatus().name()))
+                .startDateTime(event.getStartDateTime().toString())
+                .endDateTime(event.getEndDateTime().toString())
+                .capacity(event.getCapacity())
+                .stopBookingBeforeMinutes(event.getStopBookingsBeforeMinutes())
                 .build();
     }
 }

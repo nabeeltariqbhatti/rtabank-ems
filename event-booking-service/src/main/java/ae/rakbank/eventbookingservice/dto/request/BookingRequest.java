@@ -14,14 +14,16 @@ public class BookingRequest implements Serializable {
 
     @NotNull(message = "Event ID must not be null")
     private Long eventId;
-    @NotNull(message = "Booking status must not be null")
-    private Booking.Status status;
-    @NotNull(message = "Payment status must not be null")
-    private Booking.PaymentStatus paymentStatus;
+    @NotNull(message = "Event ID must not be null")
+    private String eventCode;
+    private Booking.Status status=Booking.Status.PENDING;
+    private Booking.PaymentStatus paymentStatus= Booking.PaymentStatus.UNPAID;
     @Min(value = 1, message = "At least one ticket must be booked")
     private int numberOfTickets;
+    private Booking.BookingType bookingType;
     @NotNull(message = "Ticket type must not be null")
     private Ticket.TicketType ticketType;
+    private int reserveForMinutes;
 
 
 

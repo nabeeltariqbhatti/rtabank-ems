@@ -1,9 +1,12 @@
 package ae.rakbank.eventbookingservice.mapper;
 
+import ae.rakbank.eventbookingservice.dto.event.EventMetadata;
+import ae.rakbank.eventbookingservice.dto.event.UpdateEvent;
 import ae.rakbank.eventbookingservice.dto.request.BookingRequest;
 import ae.rakbank.eventbookingservice.dto.response.BookingResponse;
 import ae.rakbank.eventbookingservice.model.Booking;
 
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 public class BookingMapper {
@@ -14,6 +17,8 @@ public class BookingMapper {
                 .eventId(bookingRequest.getEventId())
                 .status(bookingRequest.getStatus())
                 .paymentStatus(bookingRequest.getPaymentStatus())
+                .bookingType(bookingRequest.getBookingType())
+                .invalidAfter(LocalDateTime.now().plusMinutes(bookingRequest.getReserveForMinutes()))
                 .build();
     }
 
@@ -38,5 +43,14 @@ public class BookingMapper {
                         ))
                         .collect(Collectors.toSet())
         );
+    }
+
+    public static EventMetadata mapToEventMetadata(UpdateEvent updateEvent) {
+        return EventMetadata.builder()
+                .eventCode(updateEvent.getCode())
+                .status(updateEvent.getStatus())
+                .startDateTime(LocalDateTime.parse(updateEvent.getStartDateTime()))
+                .endDateTime(LocalDateTime.parse(updateEvent.getEndDateTime()))
+                .build();
     }
 }

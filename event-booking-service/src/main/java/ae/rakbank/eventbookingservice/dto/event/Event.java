@@ -1,9 +1,16 @@
 package ae.rakbank.eventbookingservice.dto.event;
 
-public class Event {
-    private String eventId;
-    private String eventData;
-    private EventType eventType;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-    // Constructor, getters, and setters
+@Data
+@Builder
+@Getter
+@Setter
+public class Event<T> {
+    private String eventId;
+    private T eventData;
+    private EventType eventType;
 }

@@ -1,8 +1,12 @@
 package ae.rakbank.eventbookingservice.service.impl;
 
+import ae.rakbank.eventbookingservice.dto.request.BookingRequest;
+import ae.rakbank.eventbookingservice.mapper.BookingMapper;
 import ae.rakbank.eventbookingservice.model.Booking;
+import ae.rakbank.eventbookingservice.model.Ticket;
 import ae.rakbank.eventbookingservice.repository.BookingRepository;
 import ae.rakbank.eventbookingservice.service.BookingService;
+import ae.rakbank.eventbookingservice.utils.Utils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,8 +23,18 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Transactional
-    public Booking createBooking(Booking booking) {
-        return bookingRepository.save(booking);
+    public Booking createBooking(BookingRequest booking) {
+        Booking bookingEntity = BookingMapper.toBooking(booking);
+        bookingEntity.setBookingCode(Utils.generateBookingCode(booking.getEventCode()));
+        for(int i =0; i< booking.getNumberOfTickets(); i++){
+            Ticket ticket = Ticket.builder()
+                    .ticketType(booking.getTicketType())
+                    .ticketNumber(Utils.generateTicketNumber(booking.getEventId(), booking.getEventCode(),
+                            booking.getTicketType()))
+                    .build();
+            bookingEntity.addTicket(ticket);
+        }
+        return bookingRepository.save(bookingEntity);
     }
 
     @Transactional

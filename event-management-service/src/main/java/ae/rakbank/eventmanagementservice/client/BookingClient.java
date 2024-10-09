@@ -1,7 +1,12 @@
 package ae.rakbank.eventmanagementservice.client;
 
-import org.springframework.cloud.openfeign.FeignClient;
+import ae.rakbank.eventmanagementservice.utils.RestClientUtil;
+import org.springframework.stereotype.Component;
 
-@FeignClient("bookingClient")
-public interface BookingClient {
+@Component
+public class BookingClient {
+
+
+
+
 }

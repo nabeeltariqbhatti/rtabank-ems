@@ -1,7 +1,9 @@
 package ae.rakbank.eventbookingservice.controller;
 
+import ae.rakbank.eventbookingservice.dto.request.BookingRequest;
 import ae.rakbank.eventbookingservice.model.Booking;
 import ae.rakbank.eventbookingservice.service.impl.BookingServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,28 +21,26 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
-    // Create a new booking
     @PostMapping
-    public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
+    public ResponseEntity<Booking> createBooking(@Valid  @RequestBody BookingRequest booking) {
         Booking createdBooking = bookingService.createBooking(booking);
         return new ResponseEntity<>(createdBooking, HttpStatus.CREATED);
     }
 
-    // Get a booking by ID
     @GetMapping("/{bookingId}")
     public ResponseEntity<Booking> getBookingById(@PathVariable Long bookingId) {
         Optional<Booking> booking = bookingService.getBookingById(bookingId);
         return booking.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    // Get all bookings
+
     @GetMapping
     public ResponseEntity<List<Booking>> getAllBookings() {
         List<Booking> bookings = bookingService.getAllBookings();
         return new ResponseEntity<>(bookings, HttpStatus.OK);
     }
 
-    // Update an existing booking
+
     @PutMapping("/{bookingId}")
     public ResponseEntity<Booking> updateBooking(@PathVariable Long bookingId, @RequestBody Booking updatedBooking) {
         try {
@@ -51,7 +51,6 @@ public class BookingController {
         }
     }
 
-    // Delete a booking by ID
     @DeleteMapping("/{bookingId}")
     public ResponseEntity<Void> deleteBooking(@PathVariable Long bookingId) {
         bookingService.deleteBooking(bookingId);

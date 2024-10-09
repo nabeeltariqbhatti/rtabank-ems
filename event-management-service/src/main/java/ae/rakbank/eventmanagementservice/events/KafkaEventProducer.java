@@ -1,12 +1,13 @@
 package ae.rakbank.eventmanagementservice.events;
 
+import ae.rakbank.eventmanagementservice.dtos.event.UpdateEvent;
 import ae.rakbank.eventmanagementservice.model.Event;
 import org.springframework.stereotype.Component;
 
 @Component("kafkaEventProducer")
 public final class KafkaEventProducer implements EventProducer {
     @Override
-    public void produce(Event event) {
+    public void produce(UpdateEvent event) {
 
     }
 

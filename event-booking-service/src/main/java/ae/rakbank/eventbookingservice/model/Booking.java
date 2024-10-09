@@ -1,10 +1,12 @@
 package ae.rakbank.eventbookingservice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -24,6 +26,7 @@ public class Booking extends BaseEntity {
     private Long eventId;
 
     private String bookingCode;
+    private String eventCode;
 
     @Enumerated(EnumType.STRING)
     private BookingType bookingType;
@@ -34,9 +37,16 @@ public class Booking extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "booking_id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "booking")
+    @JsonBackReference
     private List<Ticket> tickets;
+
+    private LocalDateTime invalidAfter;
+    public void addTicket(Ticket ticket){
+        if(this.tickets == null) this.tickets = new ArrayList<>();
+        tickets.add(ticket);
+        ticket.setBooking(this);
+    }
 
     public enum BookingType {
         ONLINE,
