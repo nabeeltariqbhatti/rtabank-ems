@@ -13,11 +13,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
 
 @Component
-
 @Slf4j
 public final class RestEventConsumer implements EventListener<UpdateEvent> {
-
-
 
 
 

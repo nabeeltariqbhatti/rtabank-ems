@@ -42,6 +42,7 @@ public class Booking extends BaseEntity {
     private List<Ticket> tickets;
 
     private LocalDateTime invalidAfter;
+    private String purchaseId;
     public void addTicket(Ticket ticket){
         if(this.tickets == null) this.tickets = new ArrayList<>();
         tickets.add(ticket);

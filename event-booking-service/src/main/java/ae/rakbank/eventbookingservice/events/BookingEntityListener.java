@@ -50,8 +50,13 @@ public class BookingEntityListener {
            int reservedSeats = eventMetadata.getReservedSeats()+event.getTickets().size();
            eventMetadata.setAvailableTickets(availableTickets);
            eventMetadata.setReservedSeats(reservedSeats);
+           //send event to payment about this booking is reserved
+       }else if (Booking.Status.CANCELED.equals(event.getStatus())){
+           //TODO sen refund payment event
+        }else if (Booking.Status.CONFIRMED.equals(event.getStatus())){
+           //TODO: mark payment status and log update meta data
        }
-       //TODO: create payment event
+
 
     }
 

@@ -1,4 +1,4 @@
-package com.krimo.ticket.models;
+package ae.rakbank.eventpaymentservice.models;
 
 import jakarta.persistence.*;
 import lombok.*;

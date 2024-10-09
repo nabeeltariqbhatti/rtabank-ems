@@ -1,4 +1,4 @@
-package com.krimo.ticket.dto;
+package ae.rakbank.eventpaymentservice.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.krimo.ticket.models.PurchaseStatus;
