@@ -21,7 +21,7 @@ public class UpdateEvent implements Serializable {
 
     @NotBlank(message = "Event code must not be blank")
     private String code;
-
+    private Long eventId;
     private Status status;
     private String startDateTime;
     private String endDateTime;

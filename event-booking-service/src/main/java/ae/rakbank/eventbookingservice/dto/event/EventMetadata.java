@@ -24,6 +24,7 @@ public class EventMetadata {
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private String venue;
+    private Long eventId;
 
 
 }

@@ -3,7 +3,6 @@ package ae.rakbank.eventbookingservice.cache;
 import ae.rakbank.eventbookingservice.dto.event.EventMetadata;
 import lombok.extern.slf4j.Slf4j;
 
-import java.lang.ref.WeakReference;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -11,17 +10,17 @@ import java.util.concurrent.ConcurrentHashMap;
 public class EventCache {
 
     // Cache to store Event metadata using eventCode as key and metadata as value
-    private static final Map<String, WeakReference<EventMetadata>> eventCache = new ConcurrentHashMap<>();
+    private static final Map<String, EventMetadata> eventCache = new ConcurrentHashMap<>();
 
     /**
      * Add or update event metadata in the cache.
      *
-     * @param eventCode The event code (unique identifier).
+     * @param eventCode     The event code (unique identifier).
      * @param eventMetadata The metadata of the event.
      */
     public static void updateEvent(String eventCode, EventMetadata eventMetadata) {
         log.info("Updating cache for event: {}", eventCode);
-        eventCache.put(eventCode, new WeakReference<>(eventMetadata));
+        eventCache.put(eventCode, eventMetadata);
     }
 
     /**
@@ -31,8 +30,8 @@ public class EventCache {
      * @return The metadata of the event or null if not found.
      */
     public static EventMetadata getEvent(String eventCode) {
-        WeakReference<EventMetadata> weakReference = eventCache.get(eventCode);
-        return weakReference != null ? weakReference.get() : null;
+        return eventCache.get(eventCode);
+
     }
 
     /**
@@ -52,7 +51,8 @@ public class EventCache {
         log.info("Clearing the entire event cache");
         eventCache.clear();
     }
-    public static Map<String, WeakReference<EventMetadata>> getAll(){
+
+    public static Map<String, EventMetadata> getAll() {
         return eventCache;
     }
 }

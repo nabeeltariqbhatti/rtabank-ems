@@ -72,10 +72,7 @@ public class BookingController {
     }
     @GetMapping("/cache")
     public List cache(){
-        for (WeakReference<EventMetadata> value : EventCache.getAll().values()) {
-            System.out.println(value.get());
-        }
         return EventCache.getAll().values()
-                .parallelStream().map(wr ->wr.get()).toList();
+                .parallelStream().toList();
     }
 }
