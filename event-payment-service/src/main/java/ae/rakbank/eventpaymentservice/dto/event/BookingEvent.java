@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class BookingEvent implements Serializable {
 
+    //TODO add missing fields
     private Long bookingId;
     private String bookingCode;
     private Long eventId;
@@ -23,7 +25,9 @@ public class BookingEvent implements Serializable {
     private PaymentStatus paymentStatus;
     private LocalDateTime createdDate;
     private LocalDateTime invalidAfter;
-
+    private int ticketQuantity;
+    private BigDecimal ticketPrice;
+    private Long purchaseId;
     public enum BookingType {
         ONLINE,
         OFFLINE,
@@ -34,12 +38,14 @@ public class BookingEvent implements Serializable {
         PENDING,
         CONFIRMED,
         CANCELED,
-        COMPLETED
+        COMPLETED,
+        GONE
     }
     public enum PaymentStatus {
         PAID,
         UNPAID,
         REFUNDED,
-        FAILED
+        FAILED,
+        NOT_RECEIVED
     }
 }

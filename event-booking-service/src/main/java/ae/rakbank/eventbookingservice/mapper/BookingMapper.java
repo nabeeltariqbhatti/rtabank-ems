@@ -67,6 +67,8 @@ public class BookingMapper {
                 .eventCode(booking.getEventCode())
                 .bookingType(booking.getBookingType())
                 .status(booking.getStatus())
+                .ticketPrice(booking.getTicketPrice())
+                .ticketQuantity(booking.getTicketQuantity())
                 .paymentStatus(booking.getPaymentStatus())
                 .createdDate(booking.getCreatedDate())
                 .invalidAfter(booking.getInvalidAfter())

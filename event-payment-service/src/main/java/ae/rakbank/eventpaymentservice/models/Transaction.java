@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -28,7 +29,7 @@ public class Transaction implements Serializable {
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
 
-    private Double amount;
+    private BigDecimal amount;
 
     private LocalDateTime transactionDate;
 

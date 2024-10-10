@@ -38,7 +38,6 @@ public class BookingServiceImpl implements BookingService {
     public Booking createBooking(BookingRequest booking) {
         EventMetadata event = EventCache.getEvent(booking.getEventCode());
         if(event==null){
-            //TODO: make call and fetch event to be sure
             throw  new BookingCreationException("Event is not present please try again shortly");
         }else{
             log.info("event with code {} found creating if time remains ", booking.getEventCode());
@@ -49,6 +48,7 @@ public class BookingServiceImpl implements BookingService {
         }
         Booking bookingEntity = BookingMapper.toBooking(booking);
         bookingEntity.setBookingCode(Utils.generateBookingCode(booking.getEventCode()));
+        bookingEntity.setTicketPrice(event.getTicketPrice());
         for(int i =0; i< booking.getNumberOfTickets(); i++){
             Ticket ticket = Ticket.builder()
                     .ticketType(booking.getTicketType())

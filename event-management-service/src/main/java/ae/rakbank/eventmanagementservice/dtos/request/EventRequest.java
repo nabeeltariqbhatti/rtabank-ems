@@ -1,10 +1,7 @@
 package ae.rakbank.eventmanagementservice.dtos.request;
 
 import ae.rakbank.eventmanagementservice.model.Event;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.io.Serial;
@@ -27,8 +24,10 @@ public class EventRequest implements Serializable {
     private String venue;
     private String organizer;
     @NotNull(message = "Event start date time is required")
+    @Future
     private LocalDateTime startDateTime;
     @NotNull(message = "Event end  date time  is required")
+    @Future
     private LocalDateTime endDateTime;
     @Min(value = 20, message = "Minimum capacity is 20 ")
     private int capacity;

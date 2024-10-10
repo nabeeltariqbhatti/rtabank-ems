@@ -14,17 +14,15 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookingEvent implements Serializable {
+public class PaymentEvent implements Serializable {
 
-    private Long bookingId;
+    private String purchaseCode;
+    private Long customerId;
     private String bookingCode;
-    private Long eventId;
     private String eventCode;
-    private Booking.BookingType bookingType;
-    private Booking.Status status;
     private Booking.PaymentStatus paymentStatus;
-    private LocalDateTime createdDate;
-    private LocalDateTime invalidAfter;
-    private int ticketQuantity;
-    private BigDecimal ticketPrice;
+    private LocalDateTime purchaseDate;
+    private BigDecimal totalAmount;
+
+
 }

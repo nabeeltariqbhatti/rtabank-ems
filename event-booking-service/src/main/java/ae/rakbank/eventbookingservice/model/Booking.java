@@ -8,6 +8,7 @@ import lombok.*;
 import org.springframework.context.event.EventListener;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,8 @@ public class Booking extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
-
+    private BigDecimal ticketPrice;
+    private int ticketQuantity;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "booking")
     @JsonBackReference
     private List<Ticket> tickets;
@@ -52,6 +54,7 @@ public class Booking extends BaseEntity {
         if(this.tickets == null) this.tickets = new ArrayList<>();
         tickets.add(ticket);
         ticket.setBooking(this);
+        this.ticketQuantity++;
     }
 
     public enum BookingType {
@@ -64,12 +67,14 @@ public class Booking extends BaseEntity {
         PENDING,
         CONFIRMED,
         CANCELED,
-        COMPLETED
+        COMPLETED,
+        GONE
     }
     public enum PaymentStatus {
         PAID,
         UNPAID,
         REFUNDED,
-        FAILED
+        FAILED,
+        NOT_RECEIVED
     }
 }

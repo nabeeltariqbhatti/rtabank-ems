@@ -1,7 +1,7 @@
 package ae.rakbank.eventbookingservice.events;
 
 
-public sealed interface EventListener<T> permits KafkaEventConsumer {
+public sealed interface EventListener<T> permits BookingToPaymentConsumer, PaymentToBookingConsumer {
 
     /**
      * Method to consume an Event.
