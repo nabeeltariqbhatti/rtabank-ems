@@ -11,12 +11,14 @@ import ae.rakbank.eventpaymentservice.models.Purchase;
 import ae.rakbank.eventpaymentservice.models.Transaction;
 import ae.rakbank.eventpaymentservice.service.PurchaseService;
 import ae.rakbank.eventpaymentservice.service.TransactionService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.common.errors.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.Headers;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -38,6 +40,7 @@ public class PurchaseController {
     }
 
     @PostMapping("/pay")
+    @CircuitBreaker(name = "paymentService", fallbackMethod = "paymentFallback")
     public ResponseEntity<?> paymentForBooking(@RequestParam String bookingCode,
                                                @Valid @RequestBody PaymentRequest paymentRequest,
                                                @RequestHeader(name = "Idempotency-Key") String idempotencyKey ) {
@@ -71,7 +74,10 @@ public class PurchaseController {
         return ResponseEntity.ok(purchaseById);
 
     }
-
+    public ResponseEntity<?> paymentFallback(String bookingCode, PaymentRequest paymentRequest, String idempotencyKey, Throwable t) {
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body("Payment service is currently unavailable. Please try again later.");
+    }
     // Get all Purchases
     @GetMapping
     public ResponseEntity<List<Purchase>> getAllPurchases() {
