@@ -72,7 +72,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         if (updatedPurchase.getCustomerId() != null) {
             purchase.setCustomerId(updatedPurchase.getCustomerId());
         }
-        purchase.addTransaction(updatedPurchase.getTransactions().get(0));
+        purchase.addTransaction(updatedPurchase.getTransactions().stream().findFirst().orElse(null));
         purchase = purchaseRepository.save(purchase);
         IdempotencyRecord record = new IdempotencyRecord();
         record.setIdempotencyKey(idempotencyKey);

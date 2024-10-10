@@ -15,6 +15,7 @@ import java.util.UUID;
 @Setter
 @Builder
 @Entity
+@EqualsAndHashCode
 @Table(name = "transactions")
 public class Transaction extends BaseEntity  {
 

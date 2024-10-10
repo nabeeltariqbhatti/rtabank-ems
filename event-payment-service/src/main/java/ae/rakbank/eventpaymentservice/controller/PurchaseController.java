@@ -11,16 +11,19 @@ import ae.rakbank.eventpaymentservice.models.Purchase;
 import ae.rakbank.eventpaymentservice.models.Transaction;
 import ae.rakbank.eventpaymentservice.service.PurchaseService;
 import ae.rakbank.eventpaymentservice.service.TransactionService;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.errors.ResourceNotFoundException;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.Headers;
+import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.SocketTimeoutException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +31,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/v1/purchases")
 @RequiredArgsConstructor
+@Slf4j
 public class PurchaseController {
 
     private final PurchaseService purchaseService;
@@ -40,13 +44,23 @@ public class PurchaseController {
     }
 
     @PostMapping("/pay")
-    @CircuitBreaker(name = "paymentService", fallbackMethod = "paymentFallback")
+    @Retryable(
+            retryFor = {
+                    SocketTimeoutException.class,
+                    DataAccessResourceFailureException.class,
+                    DataAccessException.class,
+                    RetryLaterException.class
+            },
+            maxAttempts = 4,
+            recover = "recover",
+            backoff = @Backoff(delay = 2000)
+    )
     public ResponseEntity<?> paymentForBooking(@RequestParam String bookingCode,
                                                @Valid @RequestBody PaymentRequest paymentRequest,
-                                               @RequestHeader(name = "Idempotency-Key") String idempotencyKey ) {
+                                               @RequestHeader(name = "Idempotency-Key") String idempotencyKey) {
         BookingEvent bookingEvent = EventCache.getEvent(bookingCode);
         if (bookingEvent == null) {
-            throw new RetryLaterException("Please try later or booking has not arrived yet.");
+            throw new RetryLaterException("Please try later");
         }
         if (LocalDateTime.now().isAfter(bookingEvent.getInvalidAfter())) {
             EventCache.removeEvent(bookingCode);
@@ -59,25 +73,18 @@ public class PurchaseController {
         try {
             purchaseById.setPurchaseDate(LocalDateTime.now());
             purchaseById.setPaymentStatus(Purchase.PaymentStatus.PAID);
-            transaction.setPurchase(purchaseById);
-            purchaseById.addTransaction(transaction);
             transaction.setAmount(purchaseById.getTotalAmount());
             transaction.setTransactionType(Transaction.TransactionType.PAYMENT);
             transaction.setTransactionStatus(Transaction.TransactionStatus.SUCCESS);
-            purchaseById = purchaseService.updatePurchase(purchaseById.getId(), purchaseById,idempotencyKey );
+            purchaseById.addTransaction(transaction);
+            purchaseById = purchaseService.updatePurchase(purchaseById.getId(), purchaseById, idempotencyKey);
         } catch (Exception e) {
             transaction.setTransactionStatus(Transaction.TransactionStatus.FAILED);
-            throw  new PaymentFailedException("payment failed ");
-        } finally {
-
+            throw new PaymentFailedException("payment failed ");
         }
         return ResponseEntity.ok(purchaseById);
+    }
 
-    }
-    public ResponseEntity<?> paymentFallback(String bookingCode, PaymentRequest paymentRequest, String idempotencyKey, Throwable t) {
-        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
-                .body("Payment service is currently unavailable. Please try again later.");
-    }
     // Get all Purchases
     @GetMapping
     public ResponseEntity<List<Purchase>> getAllPurchases() {

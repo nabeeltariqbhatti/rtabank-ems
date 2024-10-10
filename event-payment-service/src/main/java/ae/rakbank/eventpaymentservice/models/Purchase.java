@@ -9,9 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,9 +20,9 @@ import java.util.UUID;
 @Table(name = "purchases")
 @DynamicUpdate
 @EntityListeners(EventEntityListener.class)
-public class Purchase extends BaseEntity{
+public class Purchase extends BaseEntity {
 
-    private String purchaseCode= UUID.randomUUID().toString();
+    private String purchaseCode = UUID.randomUUID().toString();
     private Long customerId;
     private String bookingCode;
     private String eventCode;
@@ -34,14 +32,16 @@ public class Purchase extends BaseEntity{
     private BigDecimal totalAmount;
     @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
-    private List<Transaction> transactions;
-
+    private Set<Transaction> transactions;
 
 
     public void addTransaction(Transaction transaction) {
-        if (this.transactions == null) this.transactions = new ArrayList<>();
+        if(transaction ==null) return;
+        if (this.transactions == null) this.transactions = new HashSet<>();
         transactions.add(transaction);
         transaction.setPurchase(this);
+
+
     }
 
     public enum PaymentStatus {

@@ -1,5 +1,6 @@
 package ae.rakbank.eventpaymentservice.events;
 
+import ae.rakbank.eventpaymentservice.cache.EventCache;
 import ae.rakbank.eventpaymentservice.mapper.PaymentMapper;
 import ae.rakbank.eventpaymentservice.models.Purchase;
 import jakarta.persistence.PostPersist;
@@ -40,6 +41,9 @@ public class EventEntityListener {
     @PostUpdate
     public void afterUpdate(Purchase event) {
         System.out.println("Purchase updated " + event.getPurchaseCode());
+        if(Purchase.PaymentStatus.PAID.equals(event.getPaymentStatus())){
+            EventCache.removeEvent(event.getBookingCode());
+        }
         eventProducer.produce(PaymentMapper.toPaymentEvent(event),topic);
     }
 }

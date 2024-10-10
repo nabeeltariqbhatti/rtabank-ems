@@ -30,11 +30,14 @@ public final class KafkaEventConsumer implements EventListener<Object> {
     public void consumeEvent(Object event) {
         var consumerRecord = (ConsumerRecord<String, String>) event;
         BookingEvent bookingEvent = Utils.toObject(consumerRecord.value(), BookingEvent.class);
+
         log.info("Received event: " + bookingEvent);
         switch (Objects.requireNonNull(bookingEvent).getStatus()) {
             case PENDING -> {
                 log.info("create purchase for the booking as its reserved");
                 Purchase purchaseForBooking = purchaseService.createPurchaseForBooking(bookingEvent);
+                bookingEvent.setPurchaseId(purchaseForBooking.getId());
+                EventCache.updateEvent(bookingEvent.getBookingCode(), bookingEvent);
                 log.info("booking service will receive update shortly.");
             }
             case CANCELED -> {
@@ -46,6 +49,7 @@ public final class KafkaEventConsumer implements EventListener<Object> {
                     purchaseService.updateStatus(purchase);
                 } else {
                     log.info("no refund is needed just evicting from cache");
+
                 }
                 EventCache.removeEvent(bookingEvent.getEventCode());
 

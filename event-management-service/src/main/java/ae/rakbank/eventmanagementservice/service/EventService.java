@@ -40,17 +40,6 @@ public class EventService {
     }
 
     @Transactional
-//    @Retryable(
-//            value = {
-//                    SocketTimeoutException.class,
-//                    SQLException.class,
-//                    DataAccessResourceFailureException.class,
-//                    DataAccessException.class
-//            },
-//            maxAttempts = 3,
-//            backoff = @Backoff(delay = 2000)
-//    )
-    //TODO: make it retryable
     public Event createEvent(EventRequest event) {
         long count = eventRepository.existsEventByVenueAndStartDateTimeBetween(event.getVenue(), event.getStartDateTime(), event.getEndDateTime());
         if (count > 0) throw new VenueSlotNotAvailableException("Please select another slot.");
