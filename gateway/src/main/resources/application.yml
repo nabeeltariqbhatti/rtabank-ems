@@ -6,10 +6,18 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: account
-          uri: lb://ACCOUNT-SERVICE
+        - id: event-management
+          uri: http://localhost:9090
           predicates:
-            - Path=/api/v3/accounts/**
+            - Path=/rakbank/event-management-service/**
+        - id: booking-management
+          uri: http://localhost:9091
+          predicates:
+            - Path=/rakbank/event-booking-service/**
+        - id: event-payment-service
+          uri: http://localhost:9093
+          predicates:
+            - Path=/rakbank/event-payment-service/**
       filter:
         request-rate-limiter:
           enabled: true
