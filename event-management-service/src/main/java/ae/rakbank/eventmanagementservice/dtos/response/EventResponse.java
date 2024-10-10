@@ -2,6 +2,7 @@ package ae.rakbank.eventmanagementservice.dtos.response;
 
 import lombok.Builder;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -16,7 +17,7 @@ public record EventResponse(
         LocalDateTime startDateTime,
         LocalDateTime endDateTime,
         int capacity,
-        int ticketPrice,
+        BigDecimal ticketPrice,
         Set<String> tags,
         String status,
         int stopBookingsBeforeMinutes

@@ -1,13 +1,21 @@
 package ae.rakbank.eventbookingservice.controller;
 
+import ae.rakbank.eventbookingservice.cache.EventCache;
+import ae.rakbank.eventbookingservice.dto.event.EventMetadata;
 import ae.rakbank.eventbookingservice.dto.request.BookingRequest;
+import ae.rakbank.eventbookingservice.dto.request.UpdateBookingRequest;
+import ae.rakbank.eventbookingservice.dto.response.BookingResponse;
+import ae.rakbank.eventbookingservice.exceptions.BookingNotFoundException;
 import ae.rakbank.eventbookingservice.model.Booking;
+import ae.rakbank.eventbookingservice.model.Ticket;
 import ae.rakbank.eventbookingservice.service.impl.BookingServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +30,7 @@ public class BookingController {
     }
 
     @PostMapping
-    public ResponseEntity<Booking> createBooking(@Valid  @RequestBody BookingRequest booking) {
+    public ResponseEntity<Booking> createBooking(@Valid @RequestBody BookingRequest booking) {
         Booking createdBooking = bookingService.createBooking(booking);
         return new ResponseEntity<>(createdBooking, HttpStatus.CREATED);
     }
@@ -30,7 +38,8 @@ public class BookingController {
     @GetMapping("/{bookingId}")
     public ResponseEntity<Booking> getBookingById(@PathVariable Long bookingId) {
         Optional<Booking> booking = bookingService.getBookingById(bookingId);
-        return booking.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        return booking.map(ResponseEntity::ok).orElseThrow(() ->
+                new BookingNotFoundException("booking not found with id " + bookingId));
     }
 
 
@@ -42,7 +51,7 @@ public class BookingController {
 
 
     @PutMapping("/{bookingId}")
-    public ResponseEntity<Booking> updateBooking(@PathVariable Long bookingId, @RequestBody Booking updatedBooking) {
+    public ResponseEntity<Booking> updateBooking(@PathVariable Long bookingId, @RequestBody UpdateBookingRequest updatedBooking) {
         try {
             Booking booking = bookingService.updateBooking(bookingId, updatedBooking);
             return new ResponseEntity<>(booking, HttpStatus.OK);
@@ -51,9 +60,22 @@ public class BookingController {
         }
     }
 
+    @GetMapping("/{bookingId}/with/tickets")
+    public ResponseEntity<BookingResponse> getTicketsByBookingId(@PathVariable Long bookingId) {
+        return ResponseEntity.ok(bookingService.getBookingsWithTickets(bookingId));
+    }
+
     @DeleteMapping("/{bookingId}")
     public ResponseEntity<Void> deleteBooking(@PathVariable Long bookingId) {
         bookingService.deleteBooking(bookingId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @GetMapping("/cache")
+    public List cache(){
+        for (WeakReference<EventMetadata> value : EventCache.getAll().values()) {
+            System.out.println(value.get());
+        }
+        return EventCache.getAll().values()
+                .parallelStream().map(wr ->wr.get()).toList();
     }
 }

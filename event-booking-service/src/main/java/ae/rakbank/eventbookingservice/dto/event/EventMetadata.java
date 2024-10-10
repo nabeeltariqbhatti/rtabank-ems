@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -17,6 +18,8 @@ public class EventMetadata {
     private int availableTickets;
     private int reservedSeats;
     private int confirmedSeats;
+    private int capacity;
+    private BigDecimal ticketPrice;
     private UpdateEvent.Status status;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;

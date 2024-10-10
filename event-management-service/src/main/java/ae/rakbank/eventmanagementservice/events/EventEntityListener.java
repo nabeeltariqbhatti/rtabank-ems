@@ -11,6 +11,7 @@ import jakarta.persistence.PreUpdate;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,8 @@ public class EventEntityListener {
     @Autowired
     private   EventProducer eventProducer;
 
+    @Value(value = "${rakbank.events.topic.event.updates.topic}")
+    private String topic;
 
 
     @PrePersist
@@ -40,9 +43,7 @@ public class EventEntityListener {
     @Async
     public void afterCreate(Event event) {
         UpdateEvent updateEvent = EventMapper.toUpdateEvent(event);
-        String json = Utils.toJson(updateEvent);
-
-        eventProducer.produce(updateEvent);
+        eventProducer.produce(updateEvent,topic);
 
     }
 
@@ -53,6 +54,7 @@ public class EventEntityListener {
 
     @PostUpdate
     public void afterUpdate(Event event) {
-        System.out.println("Event updated successfully: " + event.getName());
+        UpdateEvent updateEvent = EventMapper.toUpdateEvent(event);
+        eventProducer.produce(updateEvent,topic);
     }
 }

@@ -14,7 +14,6 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 
 @Component
-@Primary
 public final class RestEventProducer implements EventProducer {
 
     private  final RestClientUtil restClientUtil;
@@ -26,12 +25,9 @@ public final class RestEventProducer implements EventProducer {
         this.bookingServiceUrl = "http://localhost:9091/rakbank/event-booking-service/rest/api/v1";
     }
 
-    @Override
-    public void produce(UpdateEvent event) {
-        // Logic to send event to booking service via REST API
-        String url = bookingServiceUrl + "/events/consumer"; // Update this URL as necessary
-       var responseSpec  = restClientUtil.post(url, event);
-        System.out.println("Event sent to booking service via REST: " + event);
-    }
 
+    @Override
+    public <T> void produce(T event, String target) {
+        System.out.println("other producer");
+    }
 }

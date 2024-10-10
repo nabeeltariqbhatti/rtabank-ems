@@ -11,6 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.IdGeneratorType;
 import org.springframework.context.event.EventListener;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -37,7 +38,7 @@ public class Event extends BaseEntity {
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private int capacity;
-    private int ticketPrice;
+    private BigDecimal ticketPrice=BigDecimal.ZERO;
     private String bookedBy;
     @ElementCollection
     private Set<String> tags;

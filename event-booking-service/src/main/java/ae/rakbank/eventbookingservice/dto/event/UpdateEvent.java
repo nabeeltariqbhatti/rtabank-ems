@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -25,9 +26,10 @@ public class UpdateEvent implements Serializable {
     private String startDateTime;
     private String endDateTime;
     private int stopBookingBeforeMinutes;
-
-    @Min(value = 0, message = "Capacity must be a non-negative integer")
+    private BigDecimal ticketPrice;
+    @Min(value = 1, message = "Capacity must be a non-negative integer")
     private Integer capacity;
+    private String venue;
 
     public enum Status {
         ACTIVE, DONE, SOLD_OUT, ON_HOLD, POSTPONED, CANCELED

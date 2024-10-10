@@ -65,6 +65,9 @@ public class EventMapper {
                 .status(Event.Status.valueOf(event.getStatus().name()))
                 .startDateTime(event.getStartDateTime().toString())
                 .endDateTime(event.getEndDateTime().toString())
+                .ticketPrice(event.getTicketPrice())
+                .venue(event.getVenue())
+                .eventId(event.getId())
                 .capacity(event.getCapacity())
                 .stopBookingBeforeMinutes(event.getStopBookingsBeforeMinutes())
                 .build();

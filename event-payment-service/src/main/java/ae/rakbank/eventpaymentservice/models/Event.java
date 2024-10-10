@@ -18,6 +18,5 @@ public class Event{
     @Id
     private Long eventId;
     private Boolean isActive;
-    @OneToMany(cascade = CascadeType.ALL)
-    Set<Ticket> tickets;
+
 }

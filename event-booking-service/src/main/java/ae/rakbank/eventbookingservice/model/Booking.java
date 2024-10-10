@@ -1,8 +1,11 @@
 package ae.rakbank.eventbookingservice.model;
 
+import ae.rakbank.eventbookingservice.events.BookingEntityListener;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.context.event.EventListener;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -21,6 +24,8 @@ import java.util.List;
         @Index(name = "booking_event_idx", columnList = "eventId")
 
 })
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@EntityListeners(BookingEntityListener.class)
 public class Booking extends BaseEntity {
 
     private Long eventId;

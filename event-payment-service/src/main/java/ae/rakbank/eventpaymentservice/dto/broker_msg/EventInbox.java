@@ -1,4 +1,4 @@
-package com.krimo.ticket.dto.broker_msg;
+package ae.rakbank.eventpaymentservice.dto.broker_msg;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

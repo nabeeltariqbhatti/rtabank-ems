@@ -52,4 +52,7 @@ public class EventCache {
         log.info("Clearing the entire event cache");
         eventCache.clear();
     }
+    public static Map<String, WeakReference<EventMetadata>> getAll(){
+        return eventCache;
+    }
 }

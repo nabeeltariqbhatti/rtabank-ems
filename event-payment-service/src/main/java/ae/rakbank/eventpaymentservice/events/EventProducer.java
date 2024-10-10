@@ -1,4 +1,4 @@
-package ae.rakbank.eventbookingservice.events;
+package ae.rakbank.eventpaymentservice.events;
 
 public sealed interface EventProducer permits KafkaEventProducer {
 

@@ -1,28 +1,39 @@
 package ae.rakbank.eventmanagementservice.events;
 
-import ae.rakbank.eventmanagementservice.dtos.event.UpdateEvent;
-import ae.rakbank.eventmanagementservice.model.Event;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
 
-@Component("kafkaEventProducer")
-public final class KafkaEventProducer implements EventProducer {
-    @Override
-    public void produce(UpdateEvent event) {
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
+@Component("kafkaEventProducer")
+@Primary
+public final class KafkaEventProducer implements EventProducer {
+
+    private final KafkaTemplate<String, Object> kafkaTemplate;
+
+
+    public KafkaEventProducer(KafkaTemplate<String, Object> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
     }
 
-//    private final KafkaTemplate<String, Event> kafkaTemplate;
-//    private final String topic;
-//
-//    public KafkaEventProducer(KafkaTemplate<String, Event> kafkaTemplate, String topic) {
-//        this.kafkaTemplate = kafkaTemplate;
-//        this.topic = topic;
-//    }
-//
-//    @Override
-//    public void produce(Event event) {
-//        // Logic to send event to Kafka
-//        kafkaTemplate.send(topic, event);
-//        System.out.println("Event sent to Kafka: " + event);
-//    }
+
+    @Override
+    public <T> void produce(T event,String topic) {
+        // Send message asynchronously
+        CompletableFuture<SendResult<String, Object>> future = kafkaTemplate.send(topic, event);
+        future.whenComplete((result, ex) -> {
+            if (ex != null) {
+                System.err.println("Message failed to send: " + ex.getMessage());
+            } else {
+                System.out.println("Message sent successfully: " + result.getProducerRecord().value());
+            }
+        });
+    }
+
+
 }

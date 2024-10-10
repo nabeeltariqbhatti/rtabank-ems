@@ -2,8 +2,9 @@ package ae.rakbank.eventbookingservice.dto.request;
 
 import ae.rakbank.eventbookingservice.model.Booking;
 import ae.rakbank.eventbookingservice.model.Ticket;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,7 +15,7 @@ public class BookingRequest implements Serializable {
 
     @NotNull(message = "Event ID must not be null")
     private Long eventId;
-    @NotNull(message = "Event ID must not be null")
+    @NotBlank(message = "Event code is missing")
     private String eventCode;
     private Booking.Status status=Booking.Status.PENDING;
     private Booking.PaymentStatus paymentStatus= Booking.PaymentStatus.UNPAID;

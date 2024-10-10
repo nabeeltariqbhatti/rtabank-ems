@@ -5,5 +5,5 @@ import ae.rakbank.eventmanagementservice.model.Event;
 
 public sealed interface EventProducer permits RestEventProducer, KafkaEventProducer {
 
-    void produce(UpdateEvent event);
+   <T> void produce(T event, String target);
 }

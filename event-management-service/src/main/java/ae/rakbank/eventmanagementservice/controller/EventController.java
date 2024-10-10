@@ -2,8 +2,6 @@ package ae.rakbank.eventmanagementservice.controller;
 
 import ae.rakbank.eventmanagementservice.dtos.request.EventRequest;
 import ae.rakbank.eventmanagementservice.dtos.response.EventResponse;
-import ae.rakbank.eventmanagementservice.dtos.response.Response;
-import ae.rakbank.eventmanagementservice.dtos.response.ResponseHandler;
 import ae.rakbank.eventmanagementservice.exceptions.EventNotFoundException;
 import ae.rakbank.eventmanagementservice.mapper.EventMapper;
 import ae.rakbank.eventmanagementservice.model.Event;
@@ -11,10 +9,10 @@ import ae.rakbank.eventmanagementservice.service.EventService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/v1/events")

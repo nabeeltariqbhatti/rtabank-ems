@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 @Slf4j
 public class Utils {
@@ -19,7 +20,8 @@ public class Utils {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
         String formattedDateTime = now.format(formatter);
-        String eventCode = eventName.toUpperCase() + formattedDateTime + "P-" + provider.toUpperCase();
+        String eventCode = UUID.randomUUID().toString().toUpperCase()
+                .substring(0,5)+eventName.toUpperCase() + formattedDateTime + "P-" + provider.toUpperCase();
 
         return eventCode;
     }

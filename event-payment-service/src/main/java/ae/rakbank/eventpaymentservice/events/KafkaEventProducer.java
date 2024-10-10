@@ -1,4 +1,4 @@
-package ae.rakbank.eventbookingservice.events;
+package ae.rakbank.eventpaymentservice.events;
 
 
 import org.springframework.context.annotation.Primary;
@@ -21,14 +21,14 @@ public final class KafkaEventProducer implements EventProducer {
 
 
     @Override
-    public <T> void produce(T event, String topic) {
+    public <T> void produce(T event,String topic) {
         // Send message asynchronously
         CompletableFuture<SendResult<String, Object>> future = kafkaTemplate.send(topic, event);
         future.whenComplete((result, ex) -> {
             if (ex != null) {
                 System.err.println("Message failed to send: " + ex.getMessage());
             } else {
-                System.out.println("Message sent successfully: " + " " + topic + " " + result.getProducerRecord().value());
+                System.out.println("Message sent successfully: " + result.getProducerRecord().value());
             }
         });
     }

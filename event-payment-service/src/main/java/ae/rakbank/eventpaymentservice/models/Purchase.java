@@ -1,42 +1,48 @@
 package ae.rakbank.eventpaymentservice.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
-@Entity
-@Table(name = "purchase")
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
-public class Purchase {
+@AllArgsConstructor
+@Getter
+@Setter
+@Builder
+@Entity
+@Table(name = "purchases")
+public class Purchase extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long purchaseId;
-    private String ticketCode;
-    @ManyToOne
-    @JoinColumn(name = "ticketId", nullable = false)
-    private Ticket ticket;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status")
-    private PurchaseStatus status;
+    private String purchaseCode= UUID.randomUUID().toString();
     private Long customerId;
-    private LocalDateTime createdAt;
 
-    public Purchase(String ticketCode, Ticket ticket, PurchaseStatus status, Long customerId, LocalDateTime createdAt) {
-        this.ticketCode = ticketCode;
-        this.ticket = ticket;
-        this.status = status;
-        this.customerId = customerId;
-        this.createdAt = createdAt;
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;
+
+    private LocalDateTime purchaseDate;
+    
+    private Double totalAmount;
+
+    @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Transaction> transactions = new ArrayList<>();
+
+
+
+    public void addTransaction(Transaction transaction) {
+        if (this.transactions == null) this.transactions = new ArrayList<>();
+        transactions.add(transaction);
+        transaction.setPurchase(this);
     }
 
-    public static Purchase create(String ticketCode, Ticket ticket, PurchaseStatus status, Long customerId) {
-        return new Purchase(ticketCode, ticket, status, customerId, LocalDateTime.now());
+    public enum PaymentStatus {
+        PAID,
+        UNPAID,
+        REFUNDED,
+        FAILED
     }
 }

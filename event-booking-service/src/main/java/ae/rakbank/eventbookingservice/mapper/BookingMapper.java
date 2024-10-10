@@ -1,5 +1,6 @@
 package ae.rakbank.eventbookingservice.mapper;
 
+import ae.rakbank.eventbookingservice.dto.event.BookingEvent;
 import ae.rakbank.eventbookingservice.dto.event.EventMetadata;
 import ae.rakbank.eventbookingservice.dto.event.UpdateEvent;
 import ae.rakbank.eventbookingservice.dto.request.BookingRequest;
@@ -16,6 +17,7 @@ public class BookingMapper {
         return Booking.builder()
                 .eventId(bookingRequest.getEventId())
                 .status(bookingRequest.getStatus())
+                .eventCode(bookingRequest.getEventCode())
                 .paymentStatus(bookingRequest.getPaymentStatus())
                 .bookingType(bookingRequest.getBookingType())
                 .invalidAfter(LocalDateTime.now().plusMinutes(bookingRequest.getReserveForMinutes()))
@@ -50,7 +52,23 @@ public class BookingMapper {
                 .eventCode(updateEvent.getCode())
                 .status(updateEvent.getStatus())
                 .startDateTime(LocalDateTime.parse(updateEvent.getStartDateTime()))
+                .ticketPrice(updateEvent.getTicketPrice())
+                .venue(updateEvent.getVenue())
                 .endDateTime(LocalDateTime.parse(updateEvent.getEndDateTime()))
+                .build();
+    }
+
+    public static BookingEvent toBookingEvent(Booking booking) {
+        return BookingEvent.builder()
+                .bookingId(booking.getId())
+                .bookingCode(booking.getBookingCode())
+                .eventId(booking.getEventId())
+                .eventCode(booking.getEventCode())
+                .bookingType(booking.getBookingType())
+                .status(booking.getStatus())
+                .paymentStatus(booking.getPaymentStatus())
+                .createdDate(booking.getCreatedDate())
+                .invalidAfter(booking.getInvalidAfter())
                 .build();
     }
 }

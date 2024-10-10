@@ -1,48 +1,48 @@
 package ae.rakbank.eventpaymentservice.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Entity
-@Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Transaction  {
+@Getter
+@Setter
+@Builder
+@Entity
+@Table(name = "transactions")
+public class Transaction implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "purchase_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "purchase_id")
     private Purchase purchase;
 
+    private String transactionCode; // Unique code for tracking the transaction
+
+    @Enumerated(EnumType.STRING)
+    private TransactionType transactionType;
+
     private Double amount;
+
     private LocalDateTime transactionDate;
-    private String bookingCode;
-    @Enumerated(EnumType.STRING)
-    private Status status;
 
     @Enumerated(EnumType.STRING)
-    private PaymentMethod paymentMethod;
+    private TransactionStatus transactionStatus;
 
-    public enum Status {
-        PENDING,
-        SUCCESS,
-        FAILED,
-        REFUNDED
+    public enum TransactionType {
+        PAYMENT,
+        REFUND
     }
 
-    public enum PaymentMethod {
-        CREDIT_CARD,
-        PAYPAL,
-        BANK_TRANSFER,
-        CASH
+    public enum TransactionStatus {
+        SUCCESS,
+        FAILED,
+        PENDING
     }
 }
