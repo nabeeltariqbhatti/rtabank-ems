@@ -1,5 +1,7 @@
 package ae.rakbank.eventpaymentservice.models;
 
+import ae.rakbank.eventpaymentservice.events.EventEntityListener;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -19,6 +21,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "purchases")
 @DynamicUpdate
+@EntityListeners(EventEntityListener.class)
 public class Purchase extends BaseEntity{
 
     private String purchaseCode= UUID.randomUUID().toString();
@@ -30,7 +33,8 @@ public class Purchase extends BaseEntity{
     private LocalDateTime purchaseDate;
     private BigDecimal totalAmount;
     @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Transaction> transactions = new ArrayList<>();
+    @JsonManagedReference
+    private List<Transaction> transactions;
 
 
 

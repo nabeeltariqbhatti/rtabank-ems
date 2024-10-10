@@ -1,5 +1,6 @@
 package ae.rakbank.eventpaymentservice.events;
 
+import ae.rakbank.eventpaymentservice.mapper.PaymentMapper;
 import ae.rakbank.eventpaymentservice.models.Purchase;
 import jakarta.persistence.PostPersist;
 import jakarta.persistence.PostUpdate;
@@ -19,7 +20,7 @@ public class EventEntityListener {
     @Autowired
     private   EventProducer eventProducer;
 
-    @Value(value = "${rakbank.events.topic.event.updates.topic}")
+    @Value(value = "${rakbank.events.topic.payment.to.booking.topic}")
     private String topic;
 
 
@@ -32,13 +33,13 @@ public class EventEntityListener {
     @PostPersist
     @Async
     public void afterCreate(Purchase event) {
-        System.out.println("Purchase is about to be created: " + event.getPurchaseCode());
-//        eventProducer.produce(updateEvent,topic);
-
+        System.out.println("Purchase created: " + event.getPurchaseCode());
+        eventProducer.produce(PaymentMapper.toPaymentEvent(event),topic);
     }
 
     @PostUpdate
     public void afterUpdate(Purchase event) {
-        System.out.println("Purchase updated  is about to be created: " + event.getPurchaseCode());
+        System.out.println("Purchase updated " + event.getPurchaseCode());
+        eventProducer.produce(PaymentMapper.toPaymentEvent(event),topic);
     }
 }

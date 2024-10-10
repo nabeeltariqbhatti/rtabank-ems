@@ -82,6 +82,26 @@ public class BookingServiceImpl implements BookingService {
         }
     }
 
+    @Transactional
+    public Booking updateBooking(Long bookingId, Booking updatedBooking) {
+        Optional<Booking> existingBooking = bookingRepository.findById(bookingId);
+        if (existingBooking.isPresent()) {
+            Booking booking = existingBooking.get();
+            if (updatedBooking.getStatus() != null) {
+                booking.setStatus(updatedBooking.getStatus());
+            }
+            if (updatedBooking.getBookingType() != null) {
+                booking.setBookingType(updatedBooking.getBookingType());
+            }
+            if(updatedBooking.getPaymentStatus()!=null){
+                booking.setPaymentStatus(updatedBooking.getPaymentStatus());
+            }
+            return bookingRepository.save(booking);
+        } else {
+            throw new BookingNotFoundException("booking not found with id " + bookingId);
+        }
+    }
+
     public Optional<Booking> getBookingById(Long bookingId) {
         return bookingRepository.findById(bookingId);
     }
@@ -99,5 +119,10 @@ public class BookingServiceImpl implements BookingService {
                 .orElseThrow(() -> new BookingNotFoundException("booking not found with id " + bookingId));
         BookingResponse bookingResponse = BookingMapper.toBookingResponse(booking);
         return  bookingResponse;
+    }
+
+    @Override
+    public Booking getByBookingCode(String bookingCode) {
+        return bookingRepository.findBookingByBookingCode(bookingCode);
     }
 }

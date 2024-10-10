@@ -1,4 +1,4 @@
-package com.krimo.ticket.dto;
+package ae.rakbank.eventpaymentservice.dto;
 
 import java.time.LocalDateTime;
 

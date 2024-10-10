@@ -1,11 +1,13 @@
 package ae.rakbank.eventpaymentservice.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,24 +16,21 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "transactions")
-public class Transaction implements Serializable {
+public class Transaction extends BaseEntity  {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "purchase_id")
+    @JsonBackReference
     private Purchase purchase;
 
-    private String transactionCode; // Unique code for tracking the transaction
+    private String transactionCode= UUID.randomUUID().toString();
 
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
 
     private BigDecimal amount;
-
-    private LocalDateTime transactionDate;
 
     @Enumerated(EnumType.STRING)
     private TransactionStatus transactionStatus;

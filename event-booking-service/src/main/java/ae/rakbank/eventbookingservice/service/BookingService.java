@@ -13,6 +13,7 @@ public interface BookingService {
     Booking createBooking(BookingRequest booking);
 
     Booking updateBooking(Long bookingId, UpdateBookingRequest updatedBooking);
+    Booking updateBooking(Long bookingId, Booking updatedBooking);
 
     Optional<Booking> getBookingById(Long bookingId);
 
@@ -21,4 +22,6 @@ public interface BookingService {
     void deleteBooking(Long bookingId);
 
     BookingResponse getBookingsWithTickets(Long bookingId);
+
+    Booking getByBookingCode(String bookingCode);
 }

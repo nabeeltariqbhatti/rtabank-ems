@@ -1,6 +1,7 @@
 package ae.rakbank.eventpaymentservice.service.impl;
 
 import ae.rakbank.eventpaymentservice.dto.event.BookingEvent;
+import ae.rakbank.eventpaymentservice.exception.PurchaseNotAllowedException;
 import ae.rakbank.eventpaymentservice.mapper.PaymentMapper;
 import ae.rakbank.eventpaymentservice.models.IdempotencyRecord;
 import ae.rakbank.eventpaymentservice.models.Purchase;
@@ -43,43 +44,43 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public Purchase updatePurchase(Long purchaseId, Purchase updatedPurchase,String idempotencyKey) {
+    public Purchase updatePurchase(Long purchaseId, Purchase updatedPurchase, String idempotencyKey) {
 
-        Optional<IdempotencyRecord> existingRecord =idempotencyKeyRepository.findByIdempotencyKey(idempotencyKey);
+        Optional<IdempotencyRecord> existingRecord = idempotencyKeyRepository.findByIdempotencyKey(idempotencyKey);
         if (existingRecord.isPresent()) {
             return purchaseRepository.findById(existingRecord.get().getPurchaseId()).orElse(null);
         }
-        Optional<Purchase> existingPurchase = purchaseRepository.findById(purchaseId);
+        var purchase = purchaseRepository.findById(purchaseId)
+                .orElseThrow(() -> new PurchaseNotAllowedException("purchase is not allowed  right now."));
 
-        if (existingPurchase.isPresent()) {
-            Purchase purchase = existingPurchase.get();
-            if (updatedPurchase.getPaymentStatus() != null) {
-                purchase.setPaymentStatus(updatedPurchase.getPaymentStatus());
-            }
-            if (updatedPurchase.getTotalAmount() != null) {
-                purchase.setTotalAmount(updatedPurchase.getTotalAmount());
-            }
 
-            if (updatedPurchase.getBookingCode() != null) {
-                purchase.setBookingCode(updatedPurchase.getBookingCode());
-            }
-
-            if (updatedPurchase.getEventCode() != null) {
-                purchase.setEventCode(updatedPurchase.getEventCode());
-            }
-
-            if (updatedPurchase.getCustomerId() != null) {
-                purchase.setCustomerId(updatedPurchase.getCustomerId());
-            }
-            purchase.getTransactions().addAll(updatedPurchase.getTransactions());
-            purchase =  purchaseRepository.save(purchase);
-            IdempotencyRecord record = new IdempotencyRecord();
-            record.setIdempotencyKey(idempotencyKey);
-            record.setPurchaseId(purchase.getId());
-            idempotencyKeyRepository.save(record);
+        if (updatedPurchase.getPaymentStatus() != null) {
+            purchase.setPaymentStatus(updatedPurchase.getPaymentStatus());
+        }
+        if (updatedPurchase.getTotalAmount() != null) {
+            purchase.setTotalAmount(updatedPurchase.getTotalAmount());
         }
 
-        return null;
+        if (updatedPurchase.getBookingCode() != null) {
+            purchase.setBookingCode(updatedPurchase.getBookingCode());
+        }
+
+        if (updatedPurchase.getEventCode() != null) {
+            purchase.setEventCode(updatedPurchase.getEventCode());
+        }
+
+        if (updatedPurchase.getCustomerId() != null) {
+            purchase.setCustomerId(updatedPurchase.getCustomerId());
+        }
+        purchase.addTransaction(updatedPurchase.getTransactions().get(0));
+        purchase = purchaseRepository.save(purchase);
+        IdempotencyRecord record = new IdempotencyRecord();
+        record.setIdempotencyKey(idempotencyKey);
+        record.setPurchaseId(purchase.getId());
+        idempotencyKeyRepository.save(record);
+        return purchase;
+
+
     }
 
     @Override
@@ -93,5 +94,25 @@ public class PurchaseServiceImpl implements PurchaseService {
     public Purchase createPurchaseForBooking(BookingEvent bookingEvent) {
         Purchase purchase = PaymentMapper.toPurchase(bookingEvent);
         return purchaseRepository.save(purchase);
+    }
+
+    @Override
+    public Purchase getByBookingCode(String code) {
+        return purchaseRepository.findByBookingCode(code);
+    }
+
+    @Override
+    public void updateStatus(Purchase purchase) {
+        purchaseRepository.save(purchase);
+    }
+
+    @Override
+    public boolean isStatus(Purchase.PaymentStatus paid, String bookingCode) {
+        return purchaseRepository.isStatus(paid,bookingCode);
+    }
+
+    @Override
+    public void updateStatus(String bookingCode, Purchase.PaymentStatus status) {
+        purchaseRepository.updatePurchaseStatusByBookingCode(bookingCode,status);
     }
 }

@@ -3,10 +3,7 @@ package ae.rakbank.eventpaymentservice.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.krimo.ticket.dto.PurchaseEvent;
-import com.krimo.ticket.exception.ApiRequestException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;

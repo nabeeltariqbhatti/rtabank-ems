@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: api-gateway
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      routes:
+        - id: account
+          uri: lb://ACCOUNT-SERVICE
+          predicates:
+            - Path=/api/v3/accounts/**
+      filter:
+        request-rate-limiter:
+          enabled: true
+          default-key-resolver: "principalNameKeyResolver"
+# Logger configuration
+logging:
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+  level:
+    org.springframework: info
+    org.hibernate: debug
+
+# Server configuration
+server:
+  port: 8080
+  error:
+    include-binding-errors: always
+    include-message: always
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka
+
+# Monitoring
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

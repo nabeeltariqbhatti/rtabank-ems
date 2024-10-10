@@ -4,6 +4,7 @@ import ae.rakbank.eventbookingservice.model.Ticket;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
 
 import java.security.SecureRandom;
@@ -59,6 +60,9 @@ public class Utils {
     private static final ObjectMapper objectMapper = new ObjectMapper().disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
             .disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES);
 
+    static {
+        objectMapper.registerModule(new JavaTimeModule());
+    }
     /**
      * Converts an object to a JSON string.
      *

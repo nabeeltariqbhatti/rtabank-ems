@@ -61,11 +61,12 @@ public class PurchaseController {
             transaction.setAmount(purchaseById.getTotalAmount());
             transaction.setTransactionType(Transaction.TransactionType.PAYMENT);
             transaction.setTransactionStatus(Transaction.TransactionStatus.SUCCESS);
+            purchaseById = purchaseService.updatePurchase(purchaseById.getId(), purchaseById,idempotencyKey );
         } catch (Exception e) {
             transaction.setTransactionStatus(Transaction.TransactionStatus.FAILED);
             throw  new PaymentFailedException("payment failed ");
         } finally {
-            purchaseById = purchaseService.updatePurchase(purchaseById.getId(), purchaseById,idempotencyKey );
+
         }
         return ResponseEntity.ok(purchaseById);
 

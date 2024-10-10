@@ -13,4 +13,11 @@ public interface PurchaseService {
     Purchase updatePurchase(Long purchaseId, Purchase updatedPurchase,String key);
     void deletePurchase(Long purchaseId);
     Purchase createPurchaseForBooking(BookingEvent bookingEvent);
+    Purchase getByBookingCode(String code);
+
+    void updateStatus(Purchase purchase);
+
+    boolean isStatus(Purchase.PaymentStatus paid, String bookingCode);
+
+    void updateStatus(String bookingCode, Purchase.PaymentStatus refunded);
 }
