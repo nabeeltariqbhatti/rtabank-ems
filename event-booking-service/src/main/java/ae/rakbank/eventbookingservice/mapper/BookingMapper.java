@@ -50,6 +50,7 @@ public class BookingMapper {
     public static EventMetadata mapToEventMetadata(UpdateEvent updateEvent) {
         return EventMetadata.builder()
                 .eventCode(updateEvent.getCode())
+                .eventName(updateEvent.getEventName())
                 .eventId(updateEvent.getEventId())
                 .status(updateEvent.getStatus())
                 .startDateTime(LocalDateTime.parse(updateEvent.getStartDateTime()))

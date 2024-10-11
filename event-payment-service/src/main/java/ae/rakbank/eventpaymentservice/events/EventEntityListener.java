@@ -27,20 +27,21 @@ public class EventEntityListener {
 
     @PrePersist
     public void beforeCreate(Purchase event) {
-        System.out.println("Event is about to be created: " + event.getPaymentStatus());
+        log.info("Event is about to be created: " + event.getPaymentStatus());
 
     }
 
     @PostPersist
     @Async
     public void afterCreate(Purchase event) {
-        System.out.println("Purchase created: " + event.getPurchaseCode());
+        log.info("Purchase created: " + event.getPurchaseCode());
         eventProducer.produce(PaymentMapper.toPaymentEvent(event),topic);
+
     }
 
     @PostUpdate
     public void afterUpdate(Purchase event) {
-        System.out.println("Purchase updated " + event.getPurchaseCode());
+        log.info("Purchase updated " + event.getPurchaseCode());
         if(Purchase.PaymentStatus.PAID.equals(event.getPaymentStatus())){
             EventCache.removeEvent(event.getBookingCode());
         }

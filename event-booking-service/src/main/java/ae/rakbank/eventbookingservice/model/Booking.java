@@ -29,10 +29,11 @@ import java.util.List;
 @EntityListeners(BookingEntityListener.class)
 public class Booking extends BaseEntity {
 
-    private Long eventId;
+
 
     private String bookingCode;
     private String eventCode;
+    private Long eventId;
 
     @Enumerated(EnumType.STRING)
     private BookingType bookingType;

@@ -61,6 +61,7 @@ public class EventMapper {
 
     public static UpdateEvent toUpdateEvent(Event event) {
         return UpdateEvent.builder()
+                .eventName(event.getName())
                 .code(event.getCode())
                 .status(Event.Status.valueOf(event.getStatus().name()))
                 .startDateTime(event.getStartDateTime().toString())

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Ticket Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .content {
+            padding: 20px;
+        }
+        .footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+        .details {
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .details p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Your Ticket Confirmation</h1>
+    </div>
+    <div class="content">
+        <p>Dear <strong>{username}</strong>,</p>
+        <p>Thank you for your purchase! Here are the details of your ticket reservation:</p>
+        <div class="details">
+            <p><strong>Event Name:</strong> {eventName}</p>
+            <p><strong>Event Date:</strong> {eventDate}</p>
+            <p><strong>Event Location:</strong> {location}</p>
+            <p><strong>Booking Status:</strong> {status}</p>
+            <p><strong>Number of Tickets:</strong> {numberOfTickets}</p>
+            <p><strong>Payment Amount:</strong> {paymentAmount}</p>
+        </div>
+        <p>We look forward to seeing you at the event!</p>
+    </div>
+    <div class="footer">
+        <p>Best regards,</p>
+        <p>The Event Team</p>
+    </div>
+</div>
+</body>
+</html>
