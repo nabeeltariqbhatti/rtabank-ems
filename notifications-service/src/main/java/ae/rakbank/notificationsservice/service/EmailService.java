@@ -1,6 +1,7 @@
 package ae.rakbank.notificationsservice.service;
 
 import ae.rakbank.notificationsservice.dto.EmailRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Collections;
 
 @Service
+@Slf4j
 public class EmailService {
 
     @Value("${api.url}")
@@ -29,9 +31,7 @@ public class EmailService {
         headers.set("content-type", "application/json");
         HttpEntity<EmailRequest> requestEntity = new HttpEntity<>(emailRequest, headers);
         ResponseEntity<String> response = restTemplate.exchange(apiUrl, HttpMethod.POST, requestEntity, String.class);
-        System.out.println("Response: " + response.getBody());
-
-
+       log.info("Response: " + response.getBody());
 
     }
 }
