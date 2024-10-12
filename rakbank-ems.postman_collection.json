@@ -1,0 +1,2060 @@
+{
+	"info": {
+		"_postman_id": "8d1ff297-09c9-4411-aaed-a37cc87ba0d6",
+		"name": "rakbank-ems",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "38423336"
+	},
+	"item": [
+		{
+			"name": "event-management",
+			"item": [
+				{
+					"name": "get/{id}",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/rakbank/event-management-service/rest/api/v1/events/3"
+					},
+					"response": [
+						{
+							"name": "not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/rakbank/event-management-service/rest/api/v1/events/1"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Oct 2024 05:32:00 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"http://localhost:8080/rakbank/event-management-service/rest/api/v1/events/2\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"detail\": \"event with id having 2 value not found\",\n    \"instance\": \"/rakbank/event-management-service/rest/api/v1/events/2\"\n}"
+						},
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/rakbank/event-management-service/rest/api/v1/events/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Oct 2024 05:40:46 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Annual Tech Conference\",\n    \"code\": \"CONFERENCE202410091031P-RB\",\n    \"description\": \"A conference showcasing the latest in technology.\",\n    \"venue\": \"Main Auditorium\",\n    \"organizer\": \"Tech Innovations Ltd.\",\n    \"startDateTime\": \"2024-10-15T09:00:00\",\n    \"endDateTime\": \"2024-10-15T17:00:00\",\n    \"capacity\": 100,\n    \"ticketPrice\": 50,\n    \"tags\": [\n        \"innovation\",\n        \"conference\",\n        \"technology\"\n    ],\n    \"status\": \"ACTIVE\"\n}"
+						}
+					]
+				},
+				{
+					"name": "search by name",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/rakbank/event-management-service/rest/api/v1/events/search?name=Annual",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rakbank",
+								"event-management-service",
+								"rest",
+								"api",
+								"v1",
+								"events",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Annual"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/rakbank/event-management-service/rest/api/v1/events/search?name=Annual",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"rakbank",
+										"event-management-service",
+										"rest",
+										"api",
+										"v1",
+										"events",
+										"search"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Annual"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Oct 2024 06:19:44 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": [\n        {\n            \"id\": 1,\n            \"name\": \"Annual Tech Conference\",\n            \"code\": \"CONFERENCE202410091119P-RB\",\n            \"description\": \"A conference showcasing the latest in technology.\",\n            \"venue\": \"Main Auditorium\",\n            \"organizer\": \"Tech Innovations Ltd.\",\n            \"startDateTime\": \"2024-10-15T09:00:00\",\n            \"endDateTime\": \"2024-10-15T17:00:00\",\n            \"capacity\": 100,\n            \"ticketPrice\": 50,\n            \"tags\": [\n                \"innovation\",\n                \"conference\",\n                \"technology\"\n            ],\n            \"status\": \"ACTIVE\"\n        }\n    ],\n    \"pageable\": {\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"sort\": [],\n        \"offset\": 0,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"last\": true,\n    \"totalElements\": 1,\n    \"totalPages\": 1,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": [],\n    \"first\": true,\n    \"numberOfElements\": 1,\n    \"empty\": false\n}"
+						}
+					]
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Annual Tech Conference\",\n    \"description\": \"A conference showcasing the latest in technology.\",\n    \"venue\": \"Main Auditorium\",\n    \"organizer\": \"Tech Innovations Ltd.\",\n    \"startDateTime\": \"2024-11-15T01:00:00\",\n    \"endDateTime\": \"2024-11-15T03:00:00\",\n    \"capacity\": 100,\n    \"ticketPrice\": 50,\n    \"bookedBy\":\"dummyUser\",\n    \"tags\": [\"technology\", \"conference\", \"innovation\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/rakbank/event-management-service/rest/api/v1/events"
+					},
+					"response": [
+						{
+							"name": "409",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Annual Tech Conference\",\n    \"description\": \"A conference showcasing the latest in technology.\",\n    \"venue\": \"Main Auditorium\",\n    \"organizer\": \"Tech Innovations Ltd.\",\n    \"startDateTime\": \"2024-10-15T09:00:00\",\n    \"endDateTime\": \"2024-10-15T17:00:00\",\n    \"capacity\": 100,\n    \"ticketPrice\": 50,\n    \"tags\": [\"technology\", \"conference\", \"innovation\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/rakbank/event-management-service/rest/api/v1/events"
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Oct 2024 05:08:48 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"http://localhost:8080/rakbank/event-management-service/rest/api/v1/events\",\n    \"title\": \"Conflict\",\n    \"status\": 409,\n    \"detail\": \"Please select another slot.\",\n    \"instance\": \"/rakbank/event-management-service/rest/api/v1/events\"\n}"
+						},
+						{
+							"name": "400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"\",\n    \"description\": \"A conference showcasing the latest in technology.\",\n    \"venue\": \"Main Auditorium\",\n    \"organizer\": \"Tech Innovations Ltd.\",\n    \"startDateTime\": \"2024-10-15T09:00:00\",\n    \"endDateTime\": \"2024-10-15T17:00:00\",\n    \"capacity\": 100,\n    \"ticketPrice\": 50,\n    \"tags\": [\"technology\", \"conference\", \"innovation\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/rakbank/event-management-service/rest/api/v1/events"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Oct 2024 05:18:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"http://localhost:8080/rakbank/event-management-service/rest/api/v1/events\",\n    \"title\": \"Bad Request\",\n    \"status\": 400,\n    \"detail\": \"name: Event name must not be blank\",\n    \"instance\": \"/rakbank/event-management-service/rest/api/v1/events\"\n}"
+						},
+						{
+							"name": "201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Annual Tech Conference\",\n    \"description\": \"A conference showcasing the latest in technology.\",\n    \"venue\": \"Main Auditorium\",\n    \"organizer\": \"Tech Innovations Ltd.\",\n    \"startDateTime\": \"2024-10-15T09:00:00\",\n    \"endDateTime\": \"2024-10-15T17:00:00\",\n    \"capacity\": 100,\n    \"ticketPrice\": 50,\n    \"tags\": [\"technology\", \"conference\", \"innovation\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/rakbank/event-management-service/rest/api/v1/events"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Oct 2024 05:42:05 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Annual Tech Conference\",\n    \"code\": \"CONFERENCE202410091042P-RB\",\n    \"description\": \"A conference showcasing the latest in technology.\",\n    \"venue\": \"Main Auditorium\",\n    \"organizer\": \"Tech Innovations Ltd.\",\n    \"startDateTime\": \"2024-10-15T09:00:00\",\n    \"endDateTime\": \"2024-10-15T17:00:00\",\n    \"capacity\": 100,\n    \"ticketPrice\": 50,\n    \"tags\": [\n        \"innovation\",\n        \"conference\",\n        \"technology\"\n    ],\n    \"status\": \"ACTIVE\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Annual Tech Conference\",\n    \"description\": \"A conference showcasing the latest in technology.\",\n    \"venue\": \"Main Auditorium\",\n    \"organizer\": \"Tech Innovations Ltd.\",\n    \"startDateTime\": \"2024-10-15T09:00:00\",\n    \"endDateTime\": \"2024-10-15T17:00:00\",\n    \"status\":\"DONE\",\n    \"capacity\": 100,\n    \"ticketPrice\": 50,\n    \"tags\": [\"technology\", \"conference\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/rakbank/event-management-service/rest/api/v1/events?eventId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"rakbank",
+								"event-management-service",
+								"rest",
+								"api",
+								"v1",
+								"events"
+							],
+							"query": [
+								{
+									"key": "eventId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Annual Tech Conference\",\n    \"description\": \"A conference showcasing the latest in technology.\",\n    \"venue\": \"Main Auditorium\",\n    \"organizer\": \"Tech Innovations Ltd.\",\n    \"startDateTime\": \"2024-10-15T09:00:00\",\n    \"endDateTime\": \"2024-10-15T17:00:00\",\n    \"status\":\"DONE\",\n    \"capacity\": 100,\n    \"ticketPrice\": 50,\n    \"tags\": [\"technology\", \"conference\", \"innovation\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/rakbank/event-management-service/rest/api/v1/events?eventId=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"rakbank",
+										"event-management-service",
+										"rest",
+										"api",
+										"v1",
+										"events"
+									],
+									"query": [
+										{
+											"key": "eventId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Oct 2024 06:32:44 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"http://localhost:8080/rakbank/event-management-service/rest/api/v1/events\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"detail\": \"Event not found with id: 1\",\n    \"instance\": \"/rakbank/event-management-service/rest/api/v1/events\"\n}"
+						},
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Annual Tech Conference\",\n    \"description\": \"A conference showcasing the latest in technology.\",\n    \"venue\": \"Main Auditorium\",\n    \"organizer\": \"Tech Innovations Ltd.\",\n    \"startDateTime\": \"2024-10-15T09:00:00\",\n    \"endDateTime\": \"2024-10-15T17:00:00\",\n    \"status\":\"DONE\",\n    \"capacity\": 100,\n    \"ticketPrice\": 50,\n    \"tags\": [\"technology\", \"conference\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9090/rakbank/event-management-service/rest/api/v1/events?eventId=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9090",
+									"path": [
+										"rakbank",
+										"event-management-service",
+										"rest",
+										"api",
+										"v1",
+										"events"
+									],
+									"query": [
+										{
+											"key": "eventId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Oct 2024 07:01:38 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Annual Tech Conference\",\n    \"code\": \"CONFERENCE202410091201P-RB\",\n    \"description\": \"A conference showcasing the latest in technology.\",\n    \"venue\": \"Main Auditorium\",\n    \"organizer\": \"Tech Innovations Ltd.\",\n    \"startDateTime\": \"2024-10-15T09:00:00\",\n    \"endDateTime\": \"2024-10-15T17:00:00\",\n    \"capacity\": 100,\n    \"ticketPrice\": 50,\n    \"tags\": [\n        \"conference\",\n        \"technology\"\n    ],\n    \"status\": \"DONE\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "bookings",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventId\": 1,\n    \"eventCode\": \"D6316CONFERENCE202410121742P-RB\",\n    \"numberOfTickets\": 2,\n    \"ticketType\": \"REGULAR\",\n    \"bookingType\":\"ONLINE\",\n    \"reserveForMinutes\":60,\n    \"username\":\"nabeeltaariq@gmail.com\",\n    \"fullName\":\"Nabeel Bhatti\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/rakbank/event-booking-service/rest/api/v1/bookings"
+					},
+					"response": [
+						{
+							"name": "201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"eventId\": 1,\n    \"eventCode\": \"EVENT123\",\n    \"numberOfTickets\": 2,\n    \"ticketType\": \"REGULAR\",\n    \"bookingType\":\"ONLINE\",\n    \"reserveForMinutes\":60\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Oct 2024 09:57:39 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 3,\n    \"createdDate\": \"2024-10-09T14:57:39.357231\",\n    \"updatedDate\": \"2024-10-09T14:57:39.357231\",\n    \"version\": 0,\n    \"eventId\": 1,\n    \"bookingCode\": \"f46a-20241009145739-EVENT123\",\n    \"bookingType\": \"ONLINE\",\n    \"status\": \"PENDING\",\n    \"paymentStatus\": \"UNPAID\",\n    \"invalidAfter\": \"2024-10-09T15:57:39.3562346\"\n}"
+						},
+						{
+							"name": "400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"eventId\": 1,\n    \"eventCode\": \"\",\n    \"numberOfTickets\": 2,\n    \"ticketType\": \"REGULAR\",\n    \"bookingType\":\"ONLINE\",\n    \"reserveForMinutes\":60\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Oct 2024 03:16:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings\",\n    \"title\": \"Bad Request\",\n    \"status\": 400,\n    \"detail\": \"eventCode: Event code is missing\",\n    \"instance\": \"/rakbank/event-booking-service/rest/api/v1/bookings\"\n}"
+						},
+						{
+							"name": "400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"eventId\": 1,\n    \"eventCode\": \"8D42DCONFERENCE202410101108P\",\n    \"numberOfTickets\": 2,\n    \"ticketType\": \"REGULAR\",\n    \"bookingType\":\"ONLINE\",\n    \"reserveForMinutes\":60\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Oct 2024 06:25:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings\",\n    \"title\": \"Bad Request\",\n    \"status\": 400,\n    \"detail\": \"Event is not present please try again shortly\",\n    \"instance\": \"/rakbank/event-booking-service/rest/api/v1/bookings\"\n}"
+						}
+					]
+				},
+				{
+					"name": "get/{id}",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "http://localhost:8080/rakbank/event-booking-service/rest/api/v1/bookings/1"
+					},
+					"response": [
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": "http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings/1"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Oct 2024 03:26:58 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings/1\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"detail\": \"booking not found with id1\",\n    \"instance\": \"/rakbank/event-booking-service/rest/api/v1/bookings/1\"\n}"
+						},
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": "http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Oct 2024 03:27:38 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"createdDate\": \"2024-10-10T08:27:35.101922\",\n    \"updatedDate\": \"2024-10-10T08:27:35.101922\",\n    \"version\": 0,\n    \"eventId\": 1,\n    \"bookingCode\": \"3653-20241010082735-EVENT123\",\n    \"eventCode\": \"EVENT123\",\n    \"bookingType\": \"ONLINE\",\n    \"status\": \"PENDING\",\n    \"paymentStatus\": \"UNPAID\",\n    \"invalidAfter\": \"2024-10-10T09:27:35.023982\"\n}"
+						}
+					]
+				},
+				{
+					"name": "get cache",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "http://localhost:8080/rakbank/event-booking-service/rest/api/v1/bookings/cache"
+					},
+					"response": [
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": "http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings/1"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Oct 2024 03:26:58 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings/1\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"detail\": \"booking not found with id1\",\n    \"instance\": \"/rakbank/event-booking-service/rest/api/v1/bookings/1\"\n}"
+						},
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": "http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Oct 2024 03:27:38 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"createdDate\": \"2024-10-10T08:27:35.101922\",\n    \"updatedDate\": \"2024-10-10T08:27:35.101922\",\n    \"version\": 0,\n    \"eventId\": 1,\n    \"bookingCode\": \"3653-20241010082735-EVENT123\",\n    \"eventCode\": \"EVENT123\",\n    \"bookingType\": \"ONLINE\",\n    \"status\": \"PENDING\",\n    \"paymentStatus\": \"UNPAID\",\n    \"invalidAfter\": \"2024-10-10T09:27:35.023982\"\n}"
+						}
+					]
+				},
+				{
+					"name": "get booking with tickets",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "http://localhost:8080/rakbank/event-booking-service/rest/api/v1/bookings/1/with/tickets"
+					},
+					"response": [
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": "http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings/1"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Oct 2024 03:26:58 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings/1\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"detail\": \"booking not found with id1\",\n    \"instance\": \"/rakbank/event-booking-service/rest/api/v1/bookings/1\"\n}"
+						},
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": "http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings/1/with/tickets"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Oct 2024 03:48:19 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"bookingId\": 1,\n    \"eventId\": 1,\n    \"status\": \"PENDING\",\n    \"paymentStatus\": \"UNPAID\",\n    \"bookingDate\": \"2024-10-10T08:48:16.939101\",\n    \"numberOfTickets\": 2,\n    \"tickets\": [\n        {\n            \"ticketNumber\": \"CF2C6EVENT12320241010084816REG1\",\n            \"ticketType\": \"REGULAR\"\n        },\n        {\n            \"ticketNumber\": \"FB380EVENT12320241010084816REG1\",\n            \"ticketType\": \"REGULAR\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "http://localhost:8080/rakbank/event-booking-service/rest/api/v1/bookings/1"
+					},
+					"response": [
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": "http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings/1"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Oct 2024 03:26:58 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings/1\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"detail\": \"booking not found with id1\",\n    \"instance\": \"/rakbank/event-booking-service/rest/api/v1/bookings/1\"\n}"
+						},
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": "http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Oct 2024 03:27:38 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"createdDate\": \"2024-10-10T08:27:35.101922\",\n    \"updatedDate\": \"2024-10-10T08:27:35.101922\",\n    \"version\": 0,\n    \"eventId\": 1,\n    \"bookingCode\": \"3653-20241010082735-EVENT123\",\n    \"eventCode\": \"EVENT123\",\n    \"bookingType\": \"ONLINE\",\n    \"status\": \"PENDING\",\n    \"paymentStatus\": \"UNPAID\",\n    \"invalidAfter\": \"2024-10-10T09:27:35.023982\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\":\"CANCELED\",\r\n    \"bookingType\":\"OFFLINE\",\r\n    \"reserveForMinutes\":60\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/rakbank/event-booking-service/rest/api/v1/bookings/3"
+					},
+					"response": [
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": "http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings/1"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Oct 2024 03:26:58 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings/1\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"detail\": \"booking not found with id1\",\n    \"instance\": \"/rakbank/event-booking-service/rest/api/v1/bookings/1\"\n}"
+						},
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"status\":\"CANCELED\",\r\n    \"bookingType\":\"ONLINE\",\r\n    \"reserveForMinutes\":60\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9091/rakbank/event-booking-service/rest/api/v1/bookings/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Oct 2024 04:16:00 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"createdDate\": \"2024-10-10T09:15:51.407171\",\n    \"updatedDate\": \"2024-10-10T09:16:00.790213\",\n    \"version\": 1,\n    \"eventId\": 1,\n    \"bookingCode\": \"a66a-20241010091551-EVENT123\",\n    \"eventCode\": \"EVENT123\",\n    \"bookingType\": \"ONLINE\",\n    \"status\": \"CANCELED\",\n    \"paymentStatus\": \"UNPAID\",\n    \"invalidAfter\": \"2024-10-10T10:15:51.342145\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "purchase",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/rakbank/event-payment-service/rest/api/v1/purchases"
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:9093/rakbank/event-payment-service/rest/api/v1/purchases"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Oct 2024 09:37:15 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"createdDate\": \"2024-10-10T14:37:00.143167\",\n        \"updatedDate\": \"2024-10-10T14:37:00.144045\",\n        \"version\": 0,\n        \"purchaseCode\": \"b3bf5e9a-f2a8-4b6b-8ef5-db2f9da296f2\",\n        \"customerId\": 1,\n        \"bookingCode\": \"9aee-20241010143659-F0B3FCONFERENCE202410101432P-RB\",\n        \"eventCode\": \"F0B3FCONFERENCE202410101432P-RB\",\n        \"paymentStatus\": \"UNPAID\",\n        \"purchaseDate\": \"2024-10-10T14:37:00.076485\",\n        \"totalAmount\": 100,\n        \"transactions\": []\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "pay",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Idempotency-Key",
+								"value": "kjndwkjbwbhfkjhbelwedddde"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cardNumber\": \"4111111111111111\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2025,\n    \"cvv\": \"123\",\n    \"amount\": 100.50,\n    \"currency\": \"USD\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/rakbank/event-payment-service/rest/api/v1/purchases/pay?bookingCode=a99c-20241012175153-D6316CONFERENCE202410121742P-RB",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rakbank",
+								"event-payment-service",
+								"rest",
+								"api",
+								"v1",
+								"purchases",
+								"pay"
+							],
+							"query": [
+								{
+									"key": "bookingCode",
+									"value": "a99c-20241012175153-D6316CONFERENCE202410121742P-RB"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Idempotency-Key",
+										"value": "kjndwkjbwbhfkjhbelweddddee"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"cardNumber\": \"4111111111111111\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2025,\n    \"cvv\": \"123\",\n    \"amount\": 100.50,\n    \"currency\": \"USD\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9093/rakbank/event-payment-service/rest/api/v1/purchases/pay?bookingCode=711f-20241010180648-3779DCONFERENCE202410101803P-RB",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9093",
+									"path": [
+										"rakbank",
+										"event-payment-service",
+										"rest",
+										"api",
+										"v1",
+										"purchases",
+										"pay"
+									],
+									"query": [
+										{
+											"key": "bookingCode",
+											"value": "711f-20241010180648-3779DCONFERENCE202410101803P-RB"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Oct 2024 13:07:23 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"createdDate\": \"2024-10-10T18:06:49.105475\",\n    \"updatedDate\": \"2024-10-10T18:07:04.940959\",\n    \"version\": 1,\n    \"purchaseCode\": \"cd3f6170-51ef-48f6-a267-1c1ecefe7b6b\",\n    \"customerId\": 1,\n    \"bookingCode\": \"711f-20241010180648-3779DCONFERENCE202410101803P-RB\",\n    \"eventCode\": \"3779DCONFERENCE202410101803P-RB\",\n    \"paymentStatus\": \"PAID\",\n    \"purchaseDate\": \"2024-10-10T18:07:04.7157592\",\n    \"totalAmount\": 100,\n    \"transactions\": [\n        {\n            \"id\": 1,\n            \"createdDate\": \"2024-10-10T18:07:04.917968\",\n            \"updatedDate\": \"2024-10-10T18:07:04.917968\",\n            \"version\": 0,\n            \"transactionCode\": \"6977d136-0dee-4b2c-95a5-1ebea6468bd9\",\n            \"transactionType\": \"PAYMENT\",\n            \"amount\": 100,\n            \"transactionStatus\": \"SUCCESS\"\n        },\n        {\n            \"id\": 1,\n            \"createdDate\": \"2024-10-10T18:07:04.917968\",\n            \"updatedDate\": \"2024-10-10T18:07:04.917968\",\n            \"version\": 0,\n            \"transactionCode\": \"6977d136-0dee-4b2c-95a5-1ebea6468bd9\",\n            \"transactionType\": \"PAYMENT\",\n            \"amount\": 100,\n            \"transactionStatus\": \"SUCCESS\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "get/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/rakbank/event-payment-service/rest/api/v1/purchases/1"
+					},
+					"response": [
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:9093/rakbank/event-payment-service/rest/api/v1/purchases/1"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 12 Oct 2024 11:37:59 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"http://localhost:9093/rakbank/event-payment-service/rest/api/v1/purchases/9\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"detail\": \"payment for 9 not found\",\n    \"instance\": \"/rakbank/event-payment-service/rest/api/v1/purchases/9\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "account management",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"lastName\": \"Doe\",\n    \"firstName\": \"John\",\n    \"email\": \"john.doe@example.com\",\n    \"phone\": \"+123456789\",\n    \"birthDate\": \"1990-01-01\",\n    \"registeredAt\": \"2024-10-12T10:00:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/rakbank/account-management-service/rest/api/v1/accounts"
+					},
+					"response": [
+						{
+							"name": "400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"lastName\": \"Doe\",\n    \"firstName\": \"John\",\n    \"email\": \"john.doe@example.com\",\n    \"phone\": \"+123456789\",\n    \"birthDate\": \"1990-01-01\",\n    \"registeredAt\": \"2024-10-12T10:00:00\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9095/rakbank/account-management-service/rest/api/v1/accounts"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 12 Oct 2024 09:55:43 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"http://localhost:9095/rakbank/account-management-service/rest/api/v1/accounts\",\n    \"title\": \"Bad Request\",\n    \"status\": 400,\n    \"detail\": \"birthDate: must be a past date\",\n    \"instance\": \"/rakbank/account-management-service/rest/api/v1/accounts\"\n}"
+						},
+						{
+							"name": "400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"lastName\": \"Doe\",\n    \"firstName\": \"John\",\n    \"email\": \"john.doeexample.com\",\n    \"phone\": \"+123456789\",\n    \"birthDate\": \"1990-01-01\",\n    \"registeredAt\": \"2024-10-12T10:00:00\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9095/rakbank/account-management-service/rest/api/v1/accounts"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 12 Oct 2024 09:56:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"http://localhost:9095/rakbank/account-management-service/rest/api/v1/accounts\",\n    \"title\": \"Bad Request\",\n    \"status\": 400,\n    \"detail\": \"email: must be a well-formed email address\",\n    \"instance\": \"/rakbank/account-management-service/rest/api/v1/accounts\"\n}"
+						},
+						{
+							"name": "201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"lastName\": \"Doe\",\n    \"firstName\": \"John\",\n    \"email\": \"john.doe@example.com\",\n    \"phone\": \"+123456789\",\n    \"birthDate\": \"1990-01-01\",\n    \"registeredAt\": \"2024-10-12T10:00:00\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9095/rakbank/account-management-service/rest/api/v1/accounts"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 12 Oct 2024 09:58:13 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"lastName\": \"Doe\",\n    \"firstName\": \"John\",\n    \"email\": \"john.doe@example.com\",\n    \"phone\": \"+123456789\",\n    \"birthDate\": \"1990-01-01\",\n    \"registeredAt\": \"2024-10-12T10:00:00\"\n}"
+						},
+						{
+							"name": "400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"lastName\": \"Doe\",\n    \"firstName\": \"John\",\n    \"email\": \"john.doe@example.com\",\n    \"phone\": \"+123456789\",\n    \"birthDate\": \"1990-01-01\",\n    \"registeredAt\": \"2024-10-12T10:00:00\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9095/rakbank/account-management-service/rest/api/v1/accounts"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 12 Oct 2024 10:14:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"http://localhost:9095/rakbank/account-management-service/rest/api/v1/accounts\",\n    \"title\": \"Bad Request\",\n    \"status\": 400,\n    \"detail\": \"Account already exists with email: john.doe@example.com\",\n    \"instance\": \"/rakbank/account-management-service/rest/api/v1/accounts\"\n}"
+						}
+					]
+				},
+				{
+					"name": "get/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/rakbank/account-management-service/rest/api/v1/accounts/2"
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:9095/rakbank/account-management-service/rest/api/v1/accounts/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 12 Oct 2024 09:58:54 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"lastName\": \"Doe\",\n    \"firstName\": \"John\",\n    \"email\": \"john.doe@example.com\",\n    \"phone\": \"+123456789\",\n    \"birthDate\": \"1990-01-01\",\n    \"registeredAt\": \"2024-10-12T10:00:00\"\n}"
+						},
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:9095/rakbank/account-management-service/rest/api/v1/accounts/2"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 12 Oct 2024 10:01:35 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"http://localhost:9095/rakbank/account-management-service/rest/api/v1/accounts/2\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"detail\": \"Account not found with id: 2\",\n    \"instance\": \"/rakbank/account-management-service/rest/api/v1/accounts/2\"\n}"
+						}
+					]
+				},
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/rakbank/account-management-service/rest/api/v1/accounts?pageNo=1&pageSize=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rakbank",
+								"account-management-service",
+								"rest",
+								"api",
+								"v1",
+								"accounts"
+							],
+							"query": [
+								{
+									"key": "pageNo",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9095/rakbank/account-management-service/rest/api/v1/accounts?pageNo=1&pageSize=10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9095",
+									"path": [
+										"rakbank",
+										"account-management-service",
+										"rest",
+										"api",
+										"v1",
+										"accounts"
+									],
+									"query": [
+										{
+											"key": "pageNo",
+											"value": "1"
+										},
+										{
+											"key": "pageSize",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 12 Oct 2024 10:10:21 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": [\n        {\n            \"id\": 1,\n            \"lastName\": \"Doe\",\n            \"firstName\": \"John\",\n            \"email\": \"john.doe@example.com\",\n            \"phone\": \"+123456789\",\n            \"birthDate\": \"1990-01-01\",\n            \"registeredAt\": \"2024-10-12T10:00:00\"\n        },\n        {\n            \"id\": 2,\n            \"lastName\": \"Doe\",\n            \"firstName\": \"John\",\n            \"email\": \"john.doe@example.com\",\n            \"phone\": \"+123456789\",\n            \"birthDate\": \"1990-01-01\",\n            \"registeredAt\": \"2024-10-12T10:00:00\"\n        },\n        {\n            \"id\": 3,\n            \"lastName\": \"Doe\",\n            \"firstName\": \"John\",\n            \"email\": \"john.doe@example.com\",\n            \"phone\": \"+123456789\",\n            \"birthDate\": \"1990-01-01\",\n            \"registeredAt\": \"2024-10-12T10:00:00\"\n        },\n        {\n            \"id\": 4,\n            \"lastName\": \"Doe\",\n            \"firstName\": \"John\",\n            \"email\": \"john.doe@example.com\",\n            \"phone\": \"+123456789\",\n            \"birthDate\": \"1990-01-01\",\n            \"registeredAt\": \"2024-10-12T10:00:00\"\n        },\n        {\n            \"id\": 5,\n            \"lastName\": \"Doe\",\n            \"firstName\": \"John\",\n            \"email\": \"john.doe@example.com\",\n            \"phone\": \"+123456789\",\n            \"birthDate\": \"1990-01-01\",\n            \"registeredAt\": \"2024-10-12T10:00:00\"\n        },\n        {\n            \"id\": 6,\n            \"lastName\": \"Doe\",\n            \"firstName\": \"John\",\n            \"email\": \"john.doe@example.com\",\n            \"phone\": \"+123456789\",\n            \"birthDate\": \"1990-01-01\",\n            \"registeredAt\": \"2024-10-12T10:00:00\"\n        },\n        {\n            \"id\": 7,\n            \"lastName\": \"Doe\",\n            \"firstName\": \"John\",\n            \"email\": \"john.doe@example.com\",\n            \"phone\": \"+123456789\",\n            \"birthDate\": \"1990-01-01\",\n            \"registeredAt\": \"2024-10-12T10:00:00\"\n        },\n        {\n            \"id\": 8,\n            \"lastName\": \"Doe\",\n            \"firstName\": \"John\",\n            \"email\": \"john.doe@example.com\",\n            \"phone\": \"+123456789\",\n            \"birthDate\": \"1990-01-01\",\n            \"registeredAt\": \"2024-10-12T10:00:00\"\n        }\n    ],\n    \"pageable\": {\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"sort\": {\n            \"empty\": true,\n            \"sorted\": false,\n            \"unsorted\": true\n        },\n        \"offset\": 0,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"last\": true,\n    \"totalElements\": 8,\n    \"totalPages\": 1,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": true,\n        \"sorted\": false,\n        \"unsorted\": true\n    },\n    \"first\": true,\n    \"numberOfElements\": 8,\n    \"empty\": false\n}"
+						}
+					]
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/rakbank/account-management-service/rest/api/v1/accounts/1"
+					},
+					"response": [
+						{
+							"name": "204",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:9095/rakbank/account-management-service/rest/api/v1/accounts/1"
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 12 Oct 2024 10:16:13 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:9095/rakbank/account-management-service/rest/api/v1/accounts/12"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 12 Oct 2024 10:17:48 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"http://localhost:9095/rakbank/account-management-service/rest/api/v1/accounts/12\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"detail\": \"Account not found with id: 12\",\n    \"instance\": \"/rakbank/account-management-service/rest/api/v1/accounts/12\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lastName\": \"Doe\",\r\n    \"firstName\": \"John\",\r\n    \"email\": \"johnsdwd@example.com\",\r\n    \"phone\": \"+123456789\",\r\n    \"birthDate\": \"1990-01-01\",\r\n    \"registeredAt\": \"2024-10-12T10:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/rakbank/account-management-service/rest/api/v1/accounts/2"
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"lastName\": \"Doe\",\r\n    \"firstName\": \"John\",\r\n    \"email\": \"johnsdwd@example.com\",\r\n    \"phone\": \"+123456789\",\r\n    \"birthDate\": \"1990-01-01\",\r\n    \"registeredAt\": \"2024-10-12T10:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9095/rakbank/account-management-service/rest/api/v1/accounts/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "29"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 12 Oct 2024 10:21:56 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Account successfully updated."
+						},
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"lastName\": \"Doe\",\r\n    \"firstName\": \"John\",\r\n    \"email\": \"johnsdwd@example.com\",\r\n    \"phone\": \"+123456789\",\r\n    \"birthDate\": \"1990-01-01\",\r\n    \"registeredAt\": \"2024-10-12T10:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:9095/rakbank/account-management-service/rest/api/v1/accounts/2"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 12 Oct 2024 10:22:34 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"http://localhost:9095/rakbank/account-management-service/rest/api/v1/accounts/2\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"detail\": \"Account not found with id: 2\",\n    \"instance\": \"/rakbank/account-management-service/rest/api/v1/accounts/2\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
