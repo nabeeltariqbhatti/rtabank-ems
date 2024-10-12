@@ -25,9 +25,8 @@ class MessageService {
 
     private final EmailService emailService;
 
-
     @KafkaListener(topics = "${rakbank.events.topic.booking.to.notifications.topic}", groupId = "notifications")
-    public void sendPurchaseConfirmation(ConsumerRecord<String, String> consumerRecord)  {
+    public void send(ConsumerRecord<String, String> consumerRecord)  {
         log.info("event received {} ", consumerRecord);
         try{
             Notification notification = Utils.toObject(consumerRecord.value(), Notification.class);
