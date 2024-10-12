@@ -6,6 +6,7 @@ import ae.rakbank.eventbookingservice.dto.event.BookingEvent;
 import ae.rakbank.eventbookingservice.dto.event.EventMetadata;
 import ae.rakbank.eventbookingservice.mapper.BookingMapper;
 import ae.rakbank.eventbookingservice.model.Booking;
+import io.micrometer.observation.annotation.Observed;
 import jakarta.persistence.PostPersist;
 import jakarta.persistence.PostUpdate;
 import jakarta.persistence.PrePersist;
@@ -34,12 +35,18 @@ public class BookingEntityListener {
     private String bookingToPayments;
 
     @PrePersist
+    @Observed(name = "create.booking",
+            contextualName = "creating-booking"
+    )
     public void beforeCreate(Booking event) {
-        log.info("Event is about to be created: ");
+        log.info("Booking is about to be created: ");
 
     }
 
     @PostPersist
+    @Observed(name = "create.booking",
+            contextualName = "creating-booking"
+    )
     public void afterCreate(Booking event) {
         EventMetadata eventMetadata = EventCache.getEvent(event.getEventCode());
         if (eventMetadata != null) {

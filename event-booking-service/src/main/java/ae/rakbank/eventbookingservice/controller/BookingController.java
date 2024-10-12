@@ -9,6 +9,7 @@ import ae.rakbank.eventbookingservice.exceptions.BookingNotFoundException;
 import ae.rakbank.eventbookingservice.model.Booking;
 import ae.rakbank.eventbookingservice.model.Ticket;
 import ae.rakbank.eventbookingservice.service.impl.BookingServiceImpl;
+import io.micrometer.observation.annotation.Observed;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,12 +31,18 @@ public class BookingController {
     }
 
     @PostMapping
+    @Observed(name = "create.booking",
+            contextualName = "creating-booking"
+    )
     public ResponseEntity<Booking> createBooking(@Valid @RequestBody BookingRequest booking) {
         Booking createdBooking = bookingService.createBooking(booking);
         return new ResponseEntity<>(createdBooking, HttpStatus.CREATED);
     }
 
     @GetMapping("/{bookingId}")
+    @Observed(name = "retrieve.booking",
+            contextualName = "retrieving-booking"
+    )
     public ResponseEntity<Booking> getBookingById(@PathVariable Long bookingId) {
         Optional<Booking> booking = bookingService.getBookingById(bookingId);
         return booking.map(ResponseEntity::ok).orElseThrow(() ->
@@ -44,6 +51,9 @@ public class BookingController {
 
 
     @GetMapping
+    @Observed(name = "retrieve.bookings",
+            contextualName = "retrieving-bookings"
+    )
     public ResponseEntity<List<Booking>> getAllBookings() {
         List<Booking> bookings = bookingService.getAllBookings();
         return new ResponseEntity<>(bookings, HttpStatus.OK);
@@ -51,6 +61,9 @@ public class BookingController {
 
 
     @PutMapping("/{bookingId}")
+    @Observed(name = "update.booking",
+            contextualName = "update-booking"
+    )
     public ResponseEntity<Booking> updateBooking(@PathVariable Long bookingId, @RequestBody UpdateBookingRequest updatedBooking) {
         try {
             Booking booking = bookingService.updateBooking(bookingId, updatedBooking);
@@ -61,11 +74,17 @@ public class BookingController {
     }
 
     @GetMapping("/{bookingId}/with/tickets")
+    @Observed(name = "retrieve.tickets.booking",
+            contextualName = "retrieving-tickets-booking"
+    )
     public ResponseEntity<BookingResponse> getTicketsByBookingId(@PathVariable Long bookingId) {
         return ResponseEntity.ok(bookingService.getBookingsWithTickets(bookingId));
     }
 
     @DeleteMapping("/{bookingId}")
+    @Observed(name = "delete.booking",
+            contextualName = "deleting-booking"
+    )
     public ResponseEntity<Void> deleteBooking(@PathVariable Long bookingId) {
         bookingService.deleteBooking(bookingId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

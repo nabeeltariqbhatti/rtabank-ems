@@ -1,8 +1,9 @@
-package ae.rakbank.eventmanagementservice.events.schedluer;
+package ae.rakbank.eventmanagementservice.schedluer;
 
 import ae.rakbank.eventmanagementservice.dtos.event.UpdateEvent;
 import ae.rakbank.eventmanagementservice.mapper.EventMapper;
 import ae.rakbank.eventmanagementservice.model.Event;
+import io.micrometer.observation.annotation.Observed;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,6 +20,7 @@ public class EventScheduler {
 
     @Scheduled(fixedRate = 10000)
     @Transactional
+    @Observed
     public void checkForExpiredEvents() {
         log.info("Expire Done events and send notification to booking service");
         LocalDateTime now = LocalDateTime.now();

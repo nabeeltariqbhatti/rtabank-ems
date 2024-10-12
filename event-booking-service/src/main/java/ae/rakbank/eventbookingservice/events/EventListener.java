@@ -1,7 +1,7 @@
 package ae.rakbank.eventbookingservice.events;
 
 
-public sealed interface EventListener<T> permits BookingToPaymentConsumer, PaymentToBookingConsumer {
+public sealed interface EventListener<T> permits EventsServiceToBookingConsumer, PaymentToBookingConsumer {
 
     /**
      * Method to consume an Event.

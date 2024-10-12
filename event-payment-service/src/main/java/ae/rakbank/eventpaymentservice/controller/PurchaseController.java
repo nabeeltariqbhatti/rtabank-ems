@@ -11,6 +11,7 @@ import ae.rakbank.eventpaymentservice.models.Purchase;
 import ae.rakbank.eventpaymentservice.models.Transaction;
 import ae.rakbank.eventpaymentservice.service.PurchaseService;
 import ae.rakbank.eventpaymentservice.service.TransactionService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +49,7 @@ public class PurchaseController {
             recover = "recover",
             backoff = @Backoff(delay = 2000)
     )
+    @CircuitBreaker(name = "payment")
     public ResponseEntity<?> paymentForBooking(@RequestParam String bookingCode,
                                                @Valid @RequestBody PaymentRequest paymentRequest,
                                                @RequestHeader(name = "Idempotency-Key") String idempotencyKey) {
