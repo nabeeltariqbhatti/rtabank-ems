@@ -34,7 +34,8 @@ public class Booking extends BaseEntity {
     private String bookingCode;
     private String eventCode;
     private Long eventId;
-
+    private String username;
+    private String fullName;
     @Enumerated(EnumType.STRING)
     private BookingType bookingType;
 
@@ -51,6 +52,7 @@ public class Booking extends BaseEntity {
 
     private LocalDateTime invalidAfter;
     private String purchaseId;
+    private Long customerId;
     public void addTicket(Ticket ticket){
         if(this.tickets == null) this.tickets = new ArrayList<>();
         tickets.add(ticket);

@@ -31,21 +31,22 @@ class MessageService {
         try{
             Notification notification = Utils.toObject(consumerRecord.value(), Notification.class);
 
-            String template =readAsString();
+            String template =Utils.readAsString("notification-template.html");
             Map<String, String> placeholders = new HashMap<>();
-            placeholders.put("{username}", notification.getUserName());
+            placeholders.put("{name}", notification.getFullName());
             placeholders.put("{eventName}", notification.getEventName());
             placeholders.put("{eventDate}", notification.getEventDate().toString());
-            placeholders.put("{status}", notification.getStatus().toString());
+            placeholders.put("{status}", notification.getNotificationType().toString());
             placeholders.put("{location}", notification.getEventLocation());
             placeholders.put("{numberOfTickets}", String.valueOf(notification.getNumberOfTickets()));
             placeholders.put("{paymentAmount}", notification.getPaymentAmount().toString());
+            placeholders.put("{reservationStatus}",Utils.getNotificationMessage(notification.getNotificationType(), notification.getBookingCode()) );
             for (Map.Entry<String, String> entry : placeholders.entrySet()) {
                 template = template.replace(entry.getKey(), entry.getValue());
             }
             EmailRequest emailRequest = new EmailRequest();
             emailRequest.setSender(new EmailRequest.Sender("Rak Bank Event Management", "nabeeltaariq@gmail.com"));
-            emailRequest.setTo(Collections.singletonList(new EmailRequest.Recipient(notification.getUserName(),"Default")));
+            emailRequest.setTo(Collections.singletonList(new EmailRequest.Recipient(notification.getUserName(),notification.getFullName())));
             emailRequest.setSubject("Status of your booking  " + notification.getBookingCode());
             emailRequest.setHtmlContent(template);
             emailService.sendEmail(emailRequest);
@@ -58,19 +59,5 @@ class MessageService {
 
 
 
-    private static DefaultResourceLoader resourceLoader= new DefaultResourceLoader();
 
-    public static  String readAsString(){
-        try{
-            return resourceLoader.getResource("notification-template.html")
-                    .getContentAsString(StandardCharsets.UTF_8);
-        }catch (Exception exception){
-            exception.printStackTrace();
-        }
-        return """
-                You Booking status is %s
-                
-                """.formatted("Alpha");
-
-    }
 }

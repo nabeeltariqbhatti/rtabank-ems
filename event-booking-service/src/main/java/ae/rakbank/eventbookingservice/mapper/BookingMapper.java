@@ -15,6 +15,9 @@ public class BookingMapper {
 
     public static Booking toBooking(BookingRequest bookingRequest) {
         return Booking.builder()
+                .customerId(bookingRequest.getCustomerId())
+                .username(bookingRequest.getUsername())
+                .fullName(bookingRequest.getFullName())
                 .eventId(bookingRequest.getEventId())
                 .status(bookingRequest.getStatus())
                 .eventCode(bookingRequest.getEventCode())
@@ -33,6 +36,9 @@ public class BookingMapper {
     public static BookingResponse toBookingResponse(Booking booking) {
         return new BookingResponse(
                 booking.getId(),
+                booking.getFullName(),
+                booking.getUsername(),
+                booking.getCustomerId(),
                 booking.getEventId(),
                 booking.getStatus(),
                 booking.getPaymentStatus(),
@@ -63,6 +69,8 @@ public class BookingMapper {
     public static BookingEvent toBookingEvent(Booking booking) {
         return BookingEvent.builder()
                 .bookingId(booking.getId())
+                .fullName(booking.getFullName())
+                .username(booking.getUsername())
                 .bookingCode(booking.getBookingCode())
                 .eventId(booking.getEventId())
                 .eventCode(booking.getEventCode())

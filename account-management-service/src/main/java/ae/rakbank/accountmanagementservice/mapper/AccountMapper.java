@@ -27,7 +27,6 @@ public class AccountMapper {
             return null;
         }
         Account account = new Account();
-        account.setId(accountDTO.getId());
         account.setFirstName(accountDTO.getFirstName());
         account.setLastName(accountDTO.getLastName());
         account.setEmail(accountDTO.getEmail());

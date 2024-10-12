@@ -15,9 +15,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class BookingEvent implements Serializable {
 
-    //TODO add missing fields
     private Long bookingId;
     private String bookingCode;
+    private String username;
+    private String fullName;
     private Long eventId;
     private String eventCode;
     private BookingType bookingType;

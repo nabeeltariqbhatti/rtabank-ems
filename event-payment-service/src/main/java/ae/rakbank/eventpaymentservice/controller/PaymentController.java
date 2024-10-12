@@ -5,12 +5,12 @@ import ae.rakbank.eventpaymentservice.cache.EventCache;
 import ae.rakbank.eventpaymentservice.dto.event.BookingEvent;
 import ae.rakbank.eventpaymentservice.dto.request.PaymentRequest;
 import ae.rakbank.eventpaymentservice.exception.PaymentFailedException;
+import ae.rakbank.eventpaymentservice.exception.PaymentNotFoundException;
 import ae.rakbank.eventpaymentservice.exception.PurchaseNotAllowedException;
 import ae.rakbank.eventpaymentservice.exception.RetryLaterException;
 import ae.rakbank.eventpaymentservice.models.Purchase;
 import ae.rakbank.eventpaymentservice.models.Transaction;
 import ae.rakbank.eventpaymentservice.service.PurchaseService;
-import ae.rakbank.eventpaymentservice.service.TransactionService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ import java.util.Optional;
 @RequestMapping("/v1/purchases")
 @RequiredArgsConstructor
 @Slf4j
-public class PurchaseController {
+public class PaymentController {
 
     private final PurchaseService purchaseService;
 
@@ -91,9 +91,9 @@ public class PurchaseController {
     public ResponseEntity<Purchase> getPurchaseById(@PathVariable Long purchaseId) {
         Optional<Purchase> purchase = purchaseService.getPurchaseById(purchaseId);
         return purchase.map(ResponseEntity::ok)
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElseThrow(() ->
+                        new PaymentNotFoundException("payment for %d not found".formatted(purchaseId)));
     }
-
 
 
 }

@@ -2,10 +2,13 @@ package ae.rakbank.accountmanagementservice.controller;
 
 import ae.rakbank.accountmanagementservice.dto.AccountDTO;
 import ae.rakbank.accountmanagementservice.dto.ResponseObject;
+import ae.rakbank.accountmanagementservice.exception.AccountAlreadyExistsException;
 import ae.rakbank.accountmanagementservice.mapper.AccountMapper;
 import ae.rakbank.accountmanagementservice.service.AccountService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,17 +24,19 @@ public class AccountController {
     private final AccountService accountService;
 
     @PostMapping
-    public ResponseEntity<AccountDTO> createAccount(@RequestBody AccountDTO dto) {
+    public ResponseEntity<AccountDTO> createAccount(@Valid @RequestBody AccountDTO dto) {
+        if(accountService.exists(dto.getEmail())) throw  new AccountAlreadyExistsException(dto.getEmail());
         var account = accountService.createAccount(dto);
-        return ResponseEntity.ok(AccountMapper.toAccountDto(account));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(AccountMapper.toAccountDto(account));
     }
 
     @GetMapping
-    public ResponseEntity<List<AccountDTO>> getAccounts(
+    public ResponseEntity<Page<AccountDTO>> getAccounts(
             @RequestParam("pageNo") int pageNo,
             @RequestParam("pageSize") int pageSize
     ) {
-        List<AccountDTO> accounts = accountService.getAccounts(pageNo, pageSize);
+        Page<AccountDTO> accounts = accountService.getAccounts(pageNo, pageSize);
         return ResponseEntity.ok(accounts);
 
     }

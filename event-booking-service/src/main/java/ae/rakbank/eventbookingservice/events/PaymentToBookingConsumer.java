@@ -69,12 +69,14 @@ public final class PaymentToBookingConsumer implements EventListener<ConsumerRec
         }
         NotificationDTO build = NotificationDTO.builder()
                 .paymentAmount(paymentEvent.getTotalAmount())
+                .bookingCode(byBookingCode.getBookingCode())
                 .notificationType(NotificationDTO.NotificationType.valueOf(byBookingCode.getStatus().name()))
                 .eventDate(eventMetadata.getStartDateTime())
                 .eventName(eventMetadata.getEventName())
                 .numberOfTickets(byBookingCode.getTicketQuantity())
                 .eventLocation(eventMetadata.getVenue())
-                .userName("nabeeltaariq@gmail.com").build();
+                .fullName(byBookingCode.getFullName())
+                .userName(byBookingCode.getUsername()).build();
         kafkaEventProducer.produce(build,bookingToNotificationsTopic);
         log.info("Received event: " + paymentEvent);
     }

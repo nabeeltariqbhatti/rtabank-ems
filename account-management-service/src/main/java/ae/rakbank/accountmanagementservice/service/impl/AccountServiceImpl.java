@@ -1,6 +1,7 @@
 package ae.rakbank.accountmanagementservice.service.impl;
 
 import ae.rakbank.accountmanagementservice.dto.AccountDTO;
+import ae.rakbank.accountmanagementservice.exception.AccountNotFoundException;
 import ae.rakbank.accountmanagementservice.mapper.AccountMapper;
 import ae.rakbank.accountmanagementservice.model.Account;
 import ae.rakbank.accountmanagementservice.repository.AccountRepository;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -30,8 +33,6 @@ class AccountServiceImpl implements AccountService {
     private static final String CACHE_NAME = "accounts";
     private static final String CACHE_ERR = "Cache not found.";
     private final AccountRepository accountRepository;
-    private final CacheManager cacheManager;
-    private final ObjectMapper objectMapper;
 
     @Override
     public Account createAccount(AccountDTO dto) {
@@ -46,73 +47,47 @@ class AccountServiceImpl implements AccountService {
 
     @Override
     public void updateAccount(Long id, AccountDTO dto) {
-        log.info("Update account: " + dto);
-        Account account = accountRepository.findById(id).orElseThrow();
 
-        if (dto.getEmail() != null) account.setEmail(dto.getEmail());
-        if (dto.getPhone() != null) account.setPhone(dto.getPhone());
-        if (dto.getLastName() != null) account.setLastName(dto.getLastName());
-        if (dto.getFirstName() != null) account.setFirstName(dto.getFirstName());
-        if (dto.getBirthDate() != null) account.setBirthDate(dto.getBirthDate());
-
-        accountRepository.save(account);
-        log.info("Updated account with ID " + id);
-
-        Cache accounts = cacheManager.getCache(CACHE_NAME);
-        if (accounts == null) {
-            log.error(CACHE_ERR);
-            return;
-        }
 
         try {
-            AccountDTO dtoToCache = mapToDTO(account);
-            String dtoCache = objectMapper.writeValueAsString(dtoToCache);
-            accounts.put(id, dtoCache);
-            log.info("Cache update: " + id);
-        } catch (JsonProcessingException e) {
+            log.info("Update account: " + dto);
+            Account account = accountRepository.findById(id).orElseThrow( () -> new AccountNotFoundException(id));
+
+            if (dto.getEmail() != null) account.setEmail(dto.getEmail());
+            if (dto.getPhone() != null) account.setPhone(dto.getPhone());
+            if (dto.getLastName() != null) account.setLastName(dto.getLastName());
+            if (dto.getFirstName() != null) account.setFirstName(dto.getFirstName());
+            if (dto.getBirthDate() != null) account.setBirthDate(dto.getBirthDate());
+
+            accountRepository.save(account);
+            log.info("Updated account with ID " + id);
+        } catch (Exception e) {
             log.error("Error serializing to cache", e);
-            throw new ApiRequestException(HttpStatus.SERVICE_UNAVAILABLE, "Cannot serialize cache.");
+            throw e;
         }
 
     }
-
     @Override
     public AccountDTO getAccount(Long id) {
-        Cache accounts = cacheManager.getCache(CACHE_NAME);
-        if (accounts == null) {
-            log.error(CACHE_ERR);
-            return mapToDTO(getAccFromDB(id));
+
+        try{
+            Account accFromDB = getAccFromDB(id);
+            return AccountMapper.toAccountDto(accFromDB);
+        }catch ( Exception e){
+            log.error("error while fetching account ", e);
+            throw e;
         }
 
-        return Optional.ofNullable(accounts.get(id))
-                .map(Cache.ValueWrapper::get)
-                .map(o -> {
-                    try {
-                        return objectMapper.readValue((String) o, AccountDTO.class);
-                    } catch (IOException e) {
-                        log.error("Error deserializing from cache", e);
-                        throw new ApiRequestException(HttpStatus.SERVICE_UNAVAILABLE, "Cannot deserialize from cache.");
-                    }
-                })
-                .orElseGet(() -> {
-                    try {
-                        AccountDTO dto = mapToDTO(getAccFromDB(id));
-                        String dtoCache = objectMapper.writeValueAsString(dto);
-                        accounts.put(id, dtoCache);
-                        log.info("Cache create: " + id);
-                        return dto;
-                    } catch (JsonProcessingException e) {
-                        log.error("Error serializing to cache", e);
-                        throw new ApiRequestException(HttpStatus.SERVICE_UNAVAILABLE, "Cannot serialize cache.");
-                    }
-                });
+
     }
 
 
     @Override
-    public List<AccountDTO> getAccounts(int pageNo, int pageSize) {
+    public Page<AccountDTO> getAccounts(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-        return accountRepository.findAll(pageable).map(this::mapToDTO).stream().toList();
+        Page<Account> page = accountRepository.findAll(pageable);
+        List<AccountDTO> content = page.map(AccountMapper::toAccountDto).stream().toList();
+        return  new PageImpl<>(content,pageable,page.getTotalElements());
     }
 
     @Override
@@ -124,31 +99,19 @@ class AccountServiceImpl implements AccountService {
 
     @Override
     public void deleteAccount(Long id) {
+        if(!accountRepository.existsById(id)) throw  new AccountNotFoundException(id);
         accountRepository.deleteById(id);
         log.info("Deleted account with ID " + id);
-        Cache accounts = cacheManager.getCache(CACHE_NAME);
-        if (accounts == null) {
-            log.error(CACHE_ERR);
-            return;
-        }
-        accounts.evict(id);
-        log.info("Cache evict: " + id);
+    }
+
+    @Override
+    public boolean exists(String email) {
+        return accountRepository.existsAccountByEmail(email);
     }
 
     private Account getAccFromDB(Long id) {
-        return accountRepository.findById(id).orElseThrow();
+        return accountRepository.findById(id).orElseThrow(()-> new AccountNotFoundException(id));
     }
 
-    private AccountDTO mapToDTO(Account account) {
-        return AccountDTO.builder()
-                .id(account.getId())
-                .lastName(account.getLastName())
-                .firstName(account.getFirstName())
-                .email(account.getEmail())
-                .phone(account.getPhone())
-                .birthDate(account.getBirthDate())
-                .registeredAt(account.getRegisteredAt())
-                .build();
-    }
 
 }

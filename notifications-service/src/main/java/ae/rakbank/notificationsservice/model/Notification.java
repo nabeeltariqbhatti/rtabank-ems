@@ -23,6 +23,7 @@ public class Notification extends BaseEntity  {
     private String eventLocation;
 
     private String userName;
+    private String fullName;
     private String ticketType;
 
     private int numberOfTickets;

@@ -16,8 +16,10 @@ import java.time.LocalDateTime;
 public class NotificationDTO {
     private String eventName;
     private LocalDateTime eventDate;
+    private String bookingCode;
     private String eventLocation;
     private String userName;
+    private String fullName;
     private String ticketType;
     private int numberOfTickets;
     private BigDecimal paymentAmount;

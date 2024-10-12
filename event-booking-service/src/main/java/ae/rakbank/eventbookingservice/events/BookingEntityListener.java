@@ -54,6 +54,7 @@ public class BookingEntityListener {
             int reservedSeats = eventMetadata.getReservedSeats() + event.getTickets().size();
             eventMetadata.setAvailableTickets(availableTickets);
             eventMetadata.setReservedSeats(reservedSeats);
+            EventCache.updateEvent(eventMetadata.getEventCode(), eventMetadata);
             log.info("send booking to payment service to expect payment");
         }
         kafkaProducer.produce(BookingMapper.toBookingEvent(event), bookingToPayments);

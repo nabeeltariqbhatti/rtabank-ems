@@ -36,8 +36,9 @@ public final class EventsServiceToBookingConsumer implements EventListener<Consu
                 EventMetadata metadata = EventCache.getEvent(eventMetadata.getEventCode());
                 if(metadata != null){
                     BeanUtils.copyProperties(eventMetadata,metadata,"availableTickets,reservedSeats,confirmedSeats");
-                    EventCache.updateEvent(eventMetadata.getEventCode(),metadata);
+                    return;
                 }
+                EventCache.updateEvent(eventMetadata.getEventCode(),eventMetadata);
             }default -> log.info("event type is unknown");
 
 
