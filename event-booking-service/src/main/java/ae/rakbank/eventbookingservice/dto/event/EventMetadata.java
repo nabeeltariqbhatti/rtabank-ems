@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class EventMetadata {
 
     private String eventCode;
+    private String eventName;
     private int availableTickets;
     private int reservedSeats;
     private int confirmedSeats;

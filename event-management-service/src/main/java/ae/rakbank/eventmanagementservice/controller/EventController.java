@@ -6,6 +6,7 @@ import ae.rakbank.eventmanagementservice.exceptions.EventNotFoundException;
 import ae.rakbank.eventmanagementservice.mapper.EventMapper;
 import ae.rakbank.eventmanagementservice.model.Event;
 import ae.rakbank.eventmanagementservice.service.EventService;
+import io.micrometer.observation.annotation.Observed;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -26,6 +27,9 @@ public class EventController {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @Observed(name = "create.event",
+            contextualName = "creating-event"
+    )
     public ResponseEntity<EventResponse> createEvent(@Valid @RequestBody EventRequest event) {
         log.info("Creating event: {}", event);
         var createdEvent = eventService.createEvent(event);
@@ -36,6 +40,9 @@ public class EventController {
     }
 
     @GetMapping(path = "{eventId}")
+    @Observed(name = "retrieve.event",
+            contextualName = "retrieving-event"
+    )
     public ResponseEntity<EventResponse> getEventById(@PathVariable("eventId") Long id) {
         log.info("Fetching event with id: {}", id);
         Event eventById = eventService.getEventById(id)
@@ -48,6 +55,9 @@ public class EventController {
     }
 
     @GetMapping("/search")
+    @Observed(name = "search.events",
+            contextualName = "searching-event"
+    )
     public ResponseEntity<Page<EventResponse>> searchEvent(@RequestParam("name") String name,
                                                            @RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
                                                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
@@ -58,21 +68,25 @@ public class EventController {
     }
 
     @PutMapping
+    @Observed(name = "update.events",
+            contextualName = "updating-event"
+    )
     public ResponseEntity<EventResponse> updateEvent(@RequestParam("eventId") Long eventId,
-                                                      @RequestBody EventRequest eventRequest) {
+                                                     @RequestBody EventRequest eventRequest) {
         Event updateEvent = eventService.updateEvent(eventId, eventRequest);
 
         return new ResponseEntity<>(EventMapper.toEventResponse(updateEvent), HttpStatus.OK);
     }
 
     @DeleteMapping
+    @Observed(name = "delete.event",
+            contextualName = "deleting-event"
+    )
     public ResponseEntity<Void> deleteEvent(@PathVariable("eventId") Long eventId) {
         String message = "Event successfully deleted.";
         eventService.deleteEvent(eventId);
-        return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
 
 
 }

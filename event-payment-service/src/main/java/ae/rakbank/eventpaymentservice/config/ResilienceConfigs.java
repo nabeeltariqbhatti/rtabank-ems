@@ -1,6 +1,7 @@
 package ae.rakbank.eventpaymentservice.config;
 
 import ae.rakbank.eventpaymentservice.exception.PaymentFailedException;
+import ae.rakbank.eventpaymentservice.exception.RetryLaterException;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
@@ -21,7 +22,7 @@ public class ResilienceConfigs {
                 .waitDurationInOpenState(Duration.ofMillis(1000))
                 .permittedNumberOfCallsInHalfOpenState(2)
                 .slidingWindowSize(2)
-                .recordExceptions(IOException.class, TimeoutException.class, PaymentFailedException.class)
+                .recordExceptions(IOException.class, TimeoutException.class, RetryLaterException.class)
                 .ignoreExceptions()
                 .build();
         CircuitBreakerRegistry circuitBreakerRegistry =

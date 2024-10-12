@@ -22,6 +22,7 @@ public class UpdateEvent implements Serializable {
     private String code;
 
     private Event.Status status;
+    private String eventName;
 
     private String startDateTime;
     private String endDateTime;

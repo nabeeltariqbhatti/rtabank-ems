@@ -45,7 +45,7 @@ public final class KafkaEventConsumer implements EventListener<Object> {
                 if(purchase == null) return;
                 if (Purchase.PaymentStatus.PAID.equals(purchase.getPaymentStatus())) {
                     log.info("process refund as booking is cancelled");
-                    purchase.setPaymentStatus(Purchase.PaymentStatus.PAID);
+                    purchase.setPaymentStatus(Purchase.PaymentStatus.REFUNDED);
                     purchaseService.updateStatus(purchase);
                 } else {
                     log.info("no refund is needed just evicting from cache");

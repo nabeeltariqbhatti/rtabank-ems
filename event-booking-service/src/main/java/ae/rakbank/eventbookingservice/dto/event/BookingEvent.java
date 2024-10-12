@@ -18,8 +18,10 @@ public class BookingEvent implements Serializable {
 
     private Long bookingId;
     private String bookingCode;
-    private Long eventId;
     private String eventCode;
+    private Long eventId;
+    private String username;
+    private String fullName;
     private Booking.BookingType bookingType;
     private Booking.Status status;
     private Booking.PaymentStatus paymentStatus;

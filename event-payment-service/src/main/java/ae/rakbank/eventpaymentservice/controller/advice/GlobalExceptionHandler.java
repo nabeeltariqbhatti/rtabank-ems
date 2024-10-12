@@ -1,6 +1,7 @@
 package ae.rakbank.eventpaymentservice.controller.advice;
 
 import ae.rakbank.eventpaymentservice.exception.PaymentFailedException;
+import ae.rakbank.eventpaymentservice.exception.PaymentNotFoundException;
 import ae.rakbank.eventpaymentservice.exception.PurchaseNotAllowedException;
 import ae.rakbank.eventpaymentservice.exception.RetryLaterException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,6 +39,14 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(PaymentFailedException.class)
     public  ProblemDetail paymentFailed(PaymentFailedException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        problemDetail.setType(URI.create(request.getRequestURL().toString()));
+        problemDetail.setDetail(ex.getMessage());
+        return problemDetail;
+    }
+
+    @ExceptionHandler(PaymentNotFoundException.class)
+    public  ProblemDetail paymentNotFoundException(PaymentNotFoundException ex) {
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
         problemDetail.setType(URI.create(request.getRequestURL().toString()));
         problemDetail.setDetail(ex.getMessage());

@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 public class PaymentEvent implements Serializable {
 
     private String purchaseCode;
-    private Long customerId;
     private String bookingCode;
     private String eventCode;
     private Booking.PaymentStatus paymentStatus;

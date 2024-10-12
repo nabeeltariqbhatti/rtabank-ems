@@ -25,6 +25,9 @@ public class BookingRequest implements Serializable {
     @NotNull(message = "Ticket type must not be null")
     private Ticket.TicketType ticketType;
     private int reserveForMinutes;
+    private Long customerId;
+    private String username;
+    private String fullName;
 
 
 

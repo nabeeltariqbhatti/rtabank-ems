@@ -9,6 +9,9 @@ import java.util.Set;
 
 public record BookingResponse(
         Long bookingId,
+        String fullName,
+        String username,
+        Long customerId,
         Long eventId,
         Booking.Status status,
         Booking.PaymentStatus paymentStatus,
