@@ -71,6 +71,7 @@ public class Utils {
      * @return JSON string representation of the object.
      */
     public static <T> String toJson(T object) {
+        if(object == null) return "{}";
         try {
             return objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
