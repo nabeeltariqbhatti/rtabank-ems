@@ -1,5 +1,8 @@
 package ae.rakbank.accountmanagementservice.config;
 
+import io.micrometer.observation.ObservationRegistry;
+import io.micrometer.observation.aop.ObservedAspect;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -12,8 +15,8 @@ public class AccountAppConfig implements WebMvcConfigurer {
         registry.addViewController("/api/v3/accounts/swagger/ui").setViewName("forward:/index.html");
     }
 
-//    @Bean
-//    ObservedAspect observedAspect(ObservationRegistry observationRegistry) {
-//        return new ObservedAspect(observationRegistry);
-//    }
+    @Bean
+    ObservedAspect observedAspect(ObservationRegistry observationRegistry) {
+        return new ObservedAspect(observationRegistry);
+    }
 }
