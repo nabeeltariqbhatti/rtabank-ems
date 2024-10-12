@@ -1,17 +1,17 @@
-package ae.rakbank.notificationsservice.service;
+package ae.rakbank.notificationsservice.events;
 
 import ae.rakbank.notificationsservice.dto.EmailRequest;
 import ae.rakbank.notificationsservice.model.Notification;
+import ae.rakbank.notificationsservice.service.EmailService;
 import ae.rakbank.notificationsservice.utils.Utils;
+import io.micrometer.observation.annotation.Observed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,13 +20,16 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-class MessageService {
+class KafkaConsumer implements EventListener<ConsumerRecord<String,String>> {
 
 
     private final EmailService emailService;
 
+
+    @Override
     @KafkaListener(topics = "${rakbank.events.topic.booking.to.notifications.topic}", groupId = "notifications")
-    public void send(ConsumerRecord<String, String> consumerRecord)  {
+    @Observed(name = "notification", contextualName = "notifying-customer")
+    public void consumeEvent(ConsumerRecord<String, String> consumerRecord) {
         log.info("event received {} ", consumerRecord);
         try{
             Notification notification = Utils.toObject(consumerRecord.value(), Notification.class);
@@ -56,8 +59,4 @@ class MessageService {
         }
 
     }
-
-
-
-
 }

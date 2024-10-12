@@ -1,7 +1,7 @@
 package ae.rakbank.notificationsservice.events;
 
 
-public sealed interface EventListener<T> permits KafkaEventConsumer {
+public interface EventListener<T> {
 
     /**
      * Method to consume an Event.
