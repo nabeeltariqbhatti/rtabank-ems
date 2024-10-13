@@ -82,7 +82,6 @@ services:
     environment:
       - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
       - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
-      - API_KEY=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
 
 
   account-service:

@@ -27,7 +27,7 @@ public class EmailService {
     public void sendEmail(EmailRequest emailRequest) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("accept", "application/json");
-        headers.set("api-key", apiKey);
+        headers.set("api-key", "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");
         headers.set("content-type", "application/json");
         HttpEntity<EmailRequest> requestEntity = new HttpEntity<>(emailRequest, headers);
         ResponseEntity<String> response = restTemplate.exchange(apiUrl, HttpMethod.POST, requestEntity, String.class);
