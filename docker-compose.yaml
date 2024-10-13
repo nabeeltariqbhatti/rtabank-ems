@@ -140,7 +140,7 @@ services:
       SPRING_CLOUD_GATEWAY_ROUTES[2]_PREDICATES[0]: Path= /rakbank/account-management-service/**
       SPRING_CLOUD_GATEWAY_ROUTES[3]_URI: http://payment-service:9093
       SPRING_CLOUD_GATEWAY_ROUTES[3]_ID: payment-service
-      SPRING_CLOUD_GATEWAY_ROUTES[3]_PREDICATES[0]: Path= /rakbank/account-management-service/**
+      SPRING_CLOUD_GATEWAY_ROUTES[3]_PREDICATES[0]: Path= /rakbank/event-payment-service/**
 
   booking-service:
     image: nabeelbhatti/event-booking-service
