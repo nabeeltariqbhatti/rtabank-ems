@@ -25,23 +25,17 @@ public class EmailService {
 
     @Value("${api.key}")
     private String apiKey;
+    private final RestTemplate restTemplate = new RestTemplate();
 
-    private final JavaMailSender mailSender;
-
-    public EmailService(JavaMailSender mailSender) {
-        this.mailSender = mailSender;
-    }
 
     public void sendEmail(EmailRequest emailRequest) {
-        MimeMessagePreparator mimeMessagePreparator =mimeMessage -> {
-            MimeMessageHelper mimeMessageHelper= new MimeMessageHelper(mimeMessage);
-            mimeMessageHelper.setFrom("info@ipurvey.com");
-            mimeMessageHelper.setSubject(emailRequest.getSubject());
-            mimeMessageHelper.addTo(emailRequest.getTo().get(0).getEmail());
-            mimeMessageHelper.setText(emailRequest.getHtmlContent(),true);
-        };
-        mailSender.send(mimeMessagePreparator);
-       log.info("Response: email sent " );
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("accept", "application/json");
+        headers.set("api-key", apiKey);
+        headers.set("content-type", "application/json");
+        HttpEntity<EmailRequest> requestEntity = new HttpEntity<>(emailRequest, headers);
+        ResponseEntity<String> response = restTemplate.exchange(apiUrl, HttpMethod.POST, requestEntity, String.class);
+       log.info("Response: " + response.getBody());
 
     }
 }
