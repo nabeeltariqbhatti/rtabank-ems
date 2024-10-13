@@ -101,9 +101,9 @@ services:
       - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
 
 
-  gatway-service:
+  gateway-service:
     image: nabeelbhatti/gateway
-    container_name: booking-service
+    container_name: gateway-service
     ports:
       - "8080:8080"
     networks:
@@ -114,7 +114,7 @@ services:
     restart: always
     environment:
       MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
-      SPRING_CLOUD_GATEWAY_ROUTES[0]_URI: http://localhost:9090
+      SPRING_CLOUD_GATEWAY_ROUTES[0]_URI: http://ems:9090
       SPRING_CLOUD_GATEWAY_ROUTES[0]_ID: event-management
 #      SPRING_CLOUD_GATEWAY_ROUTES[0]_PREDICATES[0]: Path= /jio/*
 #      SPRING_CLOUD_GATEWAY_ROUTES[0]_FILTERS[0]: StripPrefix=1
