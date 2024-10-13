@@ -1,0 +1,155 @@
+version: "3.9"
+
+services:
+  kafka:
+    restart: always
+    container_name: kafka
+    image: apache/kafka-native:3.8.0
+    ports:
+      - "9092:9092"
+    healthcheck:
+      test: ["CMD", "nc", "-vz", "localhost", "9092"]
+      start_period: 15s
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    hostname: kafka
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_LISTENERS: INTERNAL://kafka:29092,EXTERNAL://0.0.0.0:9092,CONTROLLER://kafka:29093
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:29092,EXTERNAL://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka:29093"
+      KAFKA_NODE_ID: 1
+      CLUSTER_ID: "iQsUL1SRTUbIdzWbBMmhVg=="
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONFLUENT_BALANCER_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_LOG_DIRS: "/tmp/kraft-combined-logs"
+    networks:
+      - tsm
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - tsm
+    command: --logging.level.zipkin2=TRACE
+
+  event-management-service:
+    image: nabeelbhatti/event-management-service
+    container_name: ems
+    ports:
+      - "9090:9090"
+    healthcheck:
+      test: "curl --fail --silent localhost:9090/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    networks:
+      - tsm
+    depends_on:
+      kafka:
+        condition: service_healthy
+    links:
+      - zipkin
+    restart: always
+    environment:
+      - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
+
+#  event-indexer-service:
+#    image: gestanestle/event-indexer:3.0
+#    container_name: event-indexer-service
+#    networks:
+#      - tsm
+#    depends_on:
+#      elasticsearch:
+#        condition: service_healthy
+#    links:
+#      - eureka
+#    restart: always
+#    environment:
+#      - EUREKA_INSTANCE_HOSTNAME=eureka
+#      - ELASTICSEARCH_HOSTNAME=elasticsearch
+#      - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
+#
+#  event-query-service:
+#    image: gestanestle/event-query:3.0
+#    container_name: event-query-service
+#    ports:
+#      - "8080:8080"
+#    networks:
+#      - tsm
+#    depends_on:
+#      elasticsearch:
+#        condition: service_healthy
+#    links:
+#      - eureka
+#    restart: always
+#    environment:
+#      - EUREKA_INSTANCE_HOSTNAME=eureka
+#      - ELASTICSEARCH_HOSTNAME=elasticsearch
+#
+#  notification-service:
+#    image: gestanestle/notification:3.0
+#    container_name: notification-service
+#    networks:
+#      - tsm
+#    depends_on:
+#      kafka:
+#        condition: service_healthy
+#    links:
+#      - eureka
+#    restart: always
+#    environment:
+#      - EUREKA_INSTANCE_HOSTNAME=eureka
+#      - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
+#      - SERVERS_ACCOUNT-SERVICE=http://account-service:8084
+#      - SERVERS_EVENT-SERVICE=http://event-query-service:8080
+#
+#  ticket-service:
+#    image: gestanestle/ticket:3.0
+#    container_name: ticket-service
+#    ports:
+#      - "8082:8082"
+#    networks:
+#      - tsm
+#    depends_on:
+#      postgres:
+#        condition: service_healthy
+#    links:
+#      - eureka
+#    restart: always
+#    environment:
+#      - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
+#      - EUREKA_INSTANCE_HOSTNAME=eureka
+#      - POSTGRES_HOSTNAME=postgres
+#    healthcheck:
+#      test: "curl --fail --silent localhost:8082/actuator/health | grep UP || exit 1"
+#      interval: 20s
+#      timeout: 5s
+#      retries: 5
+#      start_period: 40s
+
+networks:
+  tsm:
+    driver: bridge
+    name: tsm
+
+#volumes:
+#  postgres_data:
+#    name: postgres_data
+#  elastic_data:
+#    name: elastic_data
+#  prometheus_data:
+#    name: prometheus_data
+#  grafana_data:
+#    name: grafana_data

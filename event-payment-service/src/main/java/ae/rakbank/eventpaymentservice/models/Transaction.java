@@ -15,7 +15,7 @@ import java.util.UUID;
 @Setter
 @Builder
 @Entity
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "transactions")
 public class Transaction extends BaseEntity  {
 
