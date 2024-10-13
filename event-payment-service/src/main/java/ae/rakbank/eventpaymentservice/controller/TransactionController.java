@@ -15,6 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/v1/transactions")
 @Slf4j
+@CrossOrigin(origins = {"http://localhost:8080","http://localhost:9093","http://payment-service:9093"})
 public class TransactionController {
     private final TransactionService transactionService;
 

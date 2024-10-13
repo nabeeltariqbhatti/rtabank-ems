@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/v1/accounts")
+@CrossOrigin(origins = {"http://localhost:8080","http://account-service:9095","http://localhost:9095"})
 public class AccountController {
 
     private final AccountService accountService;

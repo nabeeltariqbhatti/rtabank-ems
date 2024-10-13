@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/v1/events")
 @Slf4j
-@CrossOrigin(origins = {"http://localhost:8080","http://ems:9090"})
+@CrossOrigin(origins = {"http://localhost:8080","http://ems:9090","http://localhost:9090"})
 public class EventController {
 
     private final EventService eventService;

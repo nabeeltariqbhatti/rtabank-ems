@@ -23,7 +23,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/bookings")
-@CrossOrigin(origins = {"http://localhost:8080", "http://localhost:9091"})
+@CrossOrigin(origins = {"http://localhost:8080","http://localhost:9091", "http://booking-service:9091"})
 public class BookingController {
 
     private final BookingServiceImpl bookingService;

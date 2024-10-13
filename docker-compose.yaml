@@ -100,6 +100,21 @@ services:
       - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
       - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
 
+  event-payment-service:
+    image: nabeelbhatti/event-payment-service
+    container_name: payment-service
+    ports:
+      - "9093:9093"
+    networks:
+      - tsm
+    depends_on:
+      kafka:
+        condition: service_healthy
+    restart: always
+    environment:
+      - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
+
 
   gateway-service:
     image: nabeelbhatti/gateway
@@ -117,15 +132,16 @@ services:
       SPRING_CLOUD_GATEWAY_ROUTES[0]_URI: http://ems:9090
       SPRING_CLOUD_GATEWAY_ROUTES[0]_ID: event-management
       SPRING_CLOUD_GATEWAY_ROUTES[0]_PREDICATES[0]: Path= /rakbank/event-management-service/**
-#      SPRING_CLOUD_GATEWAY_ROUTES[0]_FILTERS[0]: StripPrefix=1
-#      SPRING_CLOUD_GATEWAY_ROUTES[1]_URI: http://airtel-microservice:9502
-#      SPRING_CLOUD_GATEWAY_ROUTES[1]_ID: airtel-service
-#      SPRING_CLOUD_GATEWAY_ROUTES[1]_PREDICATES[0]: Path= /airtel/*
-#      SPRING_CLOUD_GATEWAY_ROUTES[1]_FILTERS[0]: StripPrefix=1
-#      SPRING_CLOUD_GATEWAY_ROUTES[2]_URI: http://vodaphone-microservice:9503
-#      SPRING_CLOUD_GATEWAY_ROUTES[2]_ID: vodaphone-service
-#      SPRING_CLOUD_GATEWAY_ROUTES[2]_PREDICATES[0]: Path= /vodaphone/*
-#      SPRING_CLOUD_GATEWAY_ROUTES[2]_FILTERS[0]: StripPrefix=1
+      SPRING_CLOUD_GATEWAY_ROUTES[1]_URI: http://booking-service:9091
+      SPRING_CLOUD_GATEWAY_ROUTES[1]_ID: booking-management
+      SPRING_CLOUD_GATEWAY_ROUTES[1]_PREDICATES[0]: Path= /rakbank/event-booking-service/**
+      SPRING_CLOUD_GATEWAY_ROUTES[2]_URI: http://account-service:9095
+      SPRING_CLOUD_GATEWAY_ROUTES[2]_ID: account-service
+      SPRING_CLOUD_GATEWAY_ROUTES[2]_PREDICATES[0]: Path= /rakbank/account-management-service/**
+      SPRING_CLOUD_GATEWAY_ROUTES[3]_URI: http://payment-service:9093
+      SPRING_CLOUD_GATEWAY_ROUTES[3]_ID: payment-service
+      SPRING_CLOUD_GATEWAY_ROUTES[3]_PREDICATES[0]: Path= /rakbank/account-management-service/**
+
   booking-service:
     image: nabeelbhatti/event-booking-service
     container_name: booking-service
