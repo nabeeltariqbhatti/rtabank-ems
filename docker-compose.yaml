@@ -104,7 +104,7 @@ services:
 
   event-payment-service:
     image: nabeelbhatti/event-payment-service
-    container_name: payment-service
+    container_name: event-payment-service
     ports:
       - "9093:9093"
     networks:
@@ -142,9 +142,9 @@ services:
       SPRING_CLOUD_GATEWAY_ROUTES[2]_URI: http://account-service:9095
       SPRING_CLOUD_GATEWAY_ROUTES[2]_ID: account-service
       SPRING_CLOUD_GATEWAY_ROUTES[2]_PREDICATES[0]: Path= /rakbank/account-management-service/**
-      SPRING_CLOUD_GATEWAY_ROUTES[3]_URI: http://payment-service:9093
+      SPRING_CLOUD_GATEWAY_ROUTES[3]_URI: http://event-payment-service:9093
       SPRING_CLOUD_GATEWAY_ROUTES[3]_ID: payment-service
-      SPRING_CLOUD_GATEWAY_ROUTES[3]_PREDICATES[0]: Path= /rakbank/event-payment-service/**
+      SPRING_CLOUD_GATEWAY_ROUTES[3]_PREDICATES[0]: Path=/rakbank/event-payment-service/**
 
   booking-service:
     image: nabeelbhatti/event-booking-service
