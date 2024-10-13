@@ -116,7 +116,7 @@ services:
       MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
       SPRING_CLOUD_GATEWAY_ROUTES[0]_URI: http://ems:9090
       SPRING_CLOUD_GATEWAY_ROUTES[0]_ID: event-management
-#      SPRING_CLOUD_GATEWAY_ROUTES[0]_PREDICATES[0]: Path= /jio/*
+      SPRING_CLOUD_GATEWAY_ROUTES[0]_PREDICATES[0]: Path= /rakbank/event-management-service/**
 #      SPRING_CLOUD_GATEWAY_ROUTES[0]_FILTERS[0]: StripPrefix=1
 #      SPRING_CLOUD_GATEWAY_ROUTES[1]_URI: http://airtel-microservice:9502
 #      SPRING_CLOUD_GATEWAY_ROUTES[1]_ID: airtel-service
