@@ -39,6 +39,6 @@ COPY --from=builder /app/target/*.jar /app/myapp.jar
 # Set the JAVA_HOME environment variable
 ENV JAVA_HOME=/app/myapp-runtime
 ENV PATH="${JAVA_HOME}/bin:${PATH}".
-EXPOSE 9094
+EXPOSE 8080
 # Specify the command to run the application
 CMD ["java", "-jar", "myapp.jar"]

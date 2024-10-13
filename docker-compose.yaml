@@ -65,55 +65,62 @@ services:
       - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
       - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
 
-#  event-indexer-service:
-#    image: gestanestle/event-indexer:3.0
-#    container_name: event-indexer-service
-#    networks:
-#      - tsm
-#    depends_on:
-#      elasticsearch:
-#        condition: service_healthy
-#    links:
-#      - eureka
-#    restart: always
-#    environment:
-#      - EUREKA_INSTANCE_HOSTNAME=eureka
-#      - ELASTICSEARCH_HOSTNAME=elasticsearch
-#      - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
-#
-#  event-query-service:
-#    image: gestanestle/event-query:3.0
-#    container_name: event-query-service
-#    ports:
-#      - "8080:8080"
-#    networks:
-#      - tsm
-#    depends_on:
-#      elasticsearch:
-#        condition: service_healthy
-#    links:
-#      - eureka
-#    restart: always
-#    environment:
-#      - EUREKA_INSTANCE_HOSTNAME=eureka
-#      - ELASTICSEARCH_HOSTNAME=elasticsearch
-#
-#  notification-service:
-#    image: gestanestle/notification:3.0
-#    container_name: notification-service
-#    networks:
-#      - tsm
-#    depends_on:
-#      kafka:
-#        condition: service_healthy
-#    links:
-#      - eureka
-#    restart: always
-#    environment:
-#      - EUREKA_INSTANCE_HOSTNAME=eureka
-#      - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
-#      - SERVERS_ACCOUNT-SERVICE=http://account-service:8084
-#      - SERVERS_EVENT-SERVICE=http://event-query-service:8080
+
+  notification-service:
+    image: nabeelbhatti/notifications-service
+    container_name: notifications-service
+    networks:
+      - tsm
+    depends_on:
+      kafka:
+        condition: service_healthy
+    links:
+      - eureka
+    restart: always
+    environment:
+      - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
+
+
+
+  account-service:
+    image: nabeelbhatti/account-management-service
+    container_name: account-service
+    networks:
+      - tsm
+    depends_on:
+      kafka:
+        condition: service_healthy
+    restart: always
+    environment:
+      - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
+
+
+  gatway-service:
+    image: nabeelbhatti/event-booking-service
+    container_name: booking-service
+    networks:
+      - tsm
+    depends_on:
+      kafka:
+        condition: service_healthy
+    restart: always
+    environment:
+      - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
+  booking-service:
+    image: nabeelbhatti/event-booking-service
+    container_name: booking-service
+    networks:
+      - tsm
+    depends_on:
+      kafka:
+        condition: service_healthy
+    restart: always
+    environment:
+      - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
 #
 #  ticket-service:
 #    image: gestanestle/ticket:3.0
