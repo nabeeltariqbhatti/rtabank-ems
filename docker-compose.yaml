@@ -69,6 +69,8 @@ services:
   notification-service:
     image: nabeelbhatti/notifications-service
     container_name: notifications-service
+    ports:
+      - "9094:9094"
     networks:
       - tsm
     depends_on:
@@ -86,6 +88,8 @@ services:
   account-service:
     image: nabeelbhatti/account-management-service
     container_name: account-service
+    ports:
+      - "9095:9095"
     networks:
       - tsm
     depends_on:
@@ -98,8 +102,10 @@ services:
 
 
   gatway-service:
-    image: nabeelbhatti/event-booking-service
+    image: nabeelbhatti/gateway
     container_name: booking-service
+    ports:
+      - "8080:8080"
     networks:
       - tsm
     depends_on:
@@ -112,6 +118,8 @@ services:
   booking-service:
     image: nabeelbhatti/event-booking-service
     container_name: booking-service
+    ports:
+      - "9091:9091"
     networks:
       - tsm
     depends_on:
@@ -121,42 +129,9 @@ services:
     environment:
       - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
       - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
-#
-#  ticket-service:
-#    image: gestanestle/ticket:3.0
-#    container_name: ticket-service
-#    ports:
-#      - "8082:8082"
-#    networks:
-#      - tsm
-#    depends_on:
-#      postgres:
-#        condition: service_healthy
-#    links:
-#      - eureka
-#    restart: always
-#    environment:
-#      - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
-#      - EUREKA_INSTANCE_HOSTNAME=eureka
-#      - POSTGRES_HOSTNAME=postgres
-#    healthcheck:
-#      test: "curl --fail --silent localhost:8082/actuator/health | grep UP || exit 1"
-#      interval: 20s
-#      timeout: 5s
-#      retries: 5
-#      start_period: 40s
+
 
 networks:
   tsm:
     driver: bridge
     name: tsm
-
-#volumes:
-#  postgres_data:
-#    name: postgres_data
-#  elastic_data:
-#    name: elastic_data
-#  prometheus_data:
-#    name: prometheus_data
-#  grafana_data:
-#    name: grafana_data
