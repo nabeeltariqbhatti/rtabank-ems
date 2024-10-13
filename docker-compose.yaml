@@ -77,7 +77,7 @@ services:
       kafka:
         condition: service_healthy
     links:
-      - eureka
+      - zipkin
     restart: always
     environment:
       - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
@@ -95,6 +95,8 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
+    links:
+      - zipkin
     restart: always
     environment:
       - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
@@ -110,6 +112,8 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
+    links:
+      - zipkin
     restart: always
     environment:
       - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
