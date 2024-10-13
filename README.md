@@ -78,9 +78,9 @@ To run the application one by one you  can follow these steps
 
 ## To Test
 
-1. Install Postman [here]() if currently not installed.
-2. Save collection of the APIs from [here]().
-3. [Import]() the collection and test.
+1. Install Postman [here](https://www.postman.com/downloads/) if currently not installed.
+2. Save collection of the APIs from [here](https://github.com/nabeeltariqbhatti/rtabank-ems/blob/master/rakbank-ems.postman_collection.json).
+3. [Import](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-and-exporting-overview/) the collection and test.
 
  Or you can open the swagger running at
 ## Copyright
