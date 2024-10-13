@@ -1,22 +1,18 @@
 package ae.rakbank.eventbookingservice.controller;
 
 import ae.rakbank.eventbookingservice.cache.EventCache;
-import ae.rakbank.eventbookingservice.dto.event.EventMetadata;
 import ae.rakbank.eventbookingservice.dto.request.BookingRequest;
 import ae.rakbank.eventbookingservice.dto.request.UpdateBookingRequest;
 import ae.rakbank.eventbookingservice.dto.response.BookingResponse;
 import ae.rakbank.eventbookingservice.exceptions.BookingNotFoundException;
 import ae.rakbank.eventbookingservice.model.Booking;
-import ae.rakbank.eventbookingservice.model.Ticket;
 import ae.rakbank.eventbookingservice.service.impl.BookingServiceImpl;
 import io.micrometer.observation.annotation.Observed;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Optional;
 

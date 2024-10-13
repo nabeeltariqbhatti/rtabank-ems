@@ -25,8 +25,8 @@ public class OpenApiConfig {
     @Bean
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
-                .group("events")
-                .pathsToMatch("/v1/events/**")
+                .group("bookings")
+                .pathsToMatch("/v1/bookings/**")
                 .build();
     }
 }
