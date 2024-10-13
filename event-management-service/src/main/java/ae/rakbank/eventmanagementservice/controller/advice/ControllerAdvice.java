@@ -65,7 +65,7 @@ public class ControllerAdvice {
 
     @ExceptionHandler(EventCreationException.class)
     public ProblemDetail handleEventCreationException(EventCreationException ex) {
-        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         problemDetail.setType(URI.create(request.getRequestURL().toString()));
         problemDetail.setDetail(ex.getMessage());
         return problemDetail;
