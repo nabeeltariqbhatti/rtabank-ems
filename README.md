@@ -52,7 +52,7 @@ To run this project you would need:
 
   You can simply run docker compose file and everything will be ready:
 
-- [Docker Compose File](http://docker-compose-raw)
+- [Docker Compose File](https://github.com/nabeeltariqbhatti/rtabank-ems/blob/master/docker-compose.yaml)
 
 1. Download Docker Compose file and in the same  directory where its located run:
     ``` bash
