@@ -82,6 +82,8 @@ services:
     environment:
       - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
       - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
+      - HOST=smtp.sendgrid.net
+      - PASSWORD=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
 
 
   account-service:
