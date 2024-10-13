@@ -4,16 +4,22 @@ import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 @Configuration
 public class OpenApiConfig {
 
     @Bean
     public OpenAPI springShopOpenAPI() {
+        var server = new Server();
+        server.url("http://localhost:8080/rakbank/event-payment-service/rest/api");
         return new OpenAPI()
+                .servers(List.of(server))
                 .info(new Info().title("Rak Bank Event Management")
                         .description("Service to manage events via Rak Bank API")
                         .version("v1")
@@ -25,8 +31,16 @@ public class OpenApiConfig {
     @Bean
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
-                .group("events")
-                .pathsToMatch("/v1/events/**")
+                .group("purchases")
+                .pathsToMatch("/v1/purchases/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi publicTransactionApi() {
+        return GroupedOpenApi.builder()
+                .group("transactions")
+                .pathsToMatch("/v1/transactions/**")
                 .build();
     }
 }

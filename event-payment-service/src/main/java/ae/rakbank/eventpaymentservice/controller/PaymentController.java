@@ -12,6 +12,10 @@ import ae.rakbank.eventpaymentservice.models.Purchase;
 import ae.rakbank.eventpaymentservice.models.Transaction;
 import ae.rakbank.eventpaymentservice.service.PurchaseService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,6 +54,15 @@ public class PaymentController {
             backoff = @Backoff(delay = 2000)
     )
     @CircuitBreaker(name = "payment")
+    @Operation(summary = "Make a payment for a booking",
+            description = "This API endpoint allows a user to make a payment for an existing booking by providing a booking code and payment details.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Payment successfully processed"),
+            @ApiResponse(responseCode = "400", description = "Invalid input or payment request"),
+            @ApiResponse(responseCode = "404", description = "Booking or purchase not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @Tag(name = "Payment for booking")
     public ResponseEntity<?> paymentForBooking(@RequestParam String bookingCode,
                                                @Valid @RequestBody PaymentRequest paymentRequest,
                                                @RequestHeader(name = "Idempotency-Key") String idempotencyKey) {
