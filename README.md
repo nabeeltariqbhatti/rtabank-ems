@@ -15,16 +15,6 @@ _Event Booking Backend._
 | [![General Badge](https://img.shields.io/badge/version-1.0-COLOR.svg?logo=LOGO")](https://github.com/nabeeltariqbhatti/rtabank-ems)| Backend - v1.0 |
 
 
-![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
-
-| Service                      | Swagger API                                                                                   |
-|------------------------------|------------------------------------------------------------------------------------------------|
-| **Event Management Service**  | [![Swagger](https://img.shields.io/badge/Swagger-Event%20Management-blue?style=for-the-badge&logo=swagger)](http://localhost:8080/rakbank/event-management-service/rest/api/swagger-ui/index.html)  |
-| **Notification Service**      | [![Swagger](https://img.shields.io/badge/Swagger-Notification%20Service-green?style=for-the-badge&logo=swagger)](http://localhost:8080/notification-service/swagger-ui.html)  |
-| **Account Management Service**| [![Swagger](https://img.shields.io/badge/Swagger-Account%20Management-yellow?style=for-the-badge&logo=swagger)](http://localhost:8080/rakbank/account-management-service/rest/api/swagger-ui/index.html)  |
-| **Payment Service**           | [![Swagger](https://img.shields.io/badge/Swagger-Payment%20Service-red?style=for-the-badge&logo=swagger)](http://localhost:8080/event-payment-service/rest/api/swagger-ui/index.html)   |
-| **Booking Management Service**| [![Swagger](https://img.shields.io/badge/Swagger-Booking%20Management-orange?style=for-the-badge&logo=swagger)](http://localhost:8080/rakbank/event-booking-service/rest/api/swagger-ui/index.html) |
-
 
 | Feature                | Description                                                   |
 |------------------------|---------------------------------------------------------------|
@@ -47,6 +37,7 @@ To run this project you would need:
 - [Kafka](https://kafka.apache.org/downloads)
 - [Docker](https://docs.docker.com/engine/install/)
 
+## High Level Architecture Diagram
 
 ## Run Instructions
 
@@ -83,6 +74,18 @@ To run the application one by one you  can follow these steps
 3. [Import](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-and-exporting-overview/) the collection and test.
 
  Or you can open the swagger running at
+
+![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
+
+| Service                      | Swagger API                                                                                   |
+|------------------------------|------------------------------------------------------------------------------------------------|
+| **Event Management Service**  | [![Swagger](https://img.shields.io/badge/Swagger-Event%20Management-blue?style=for-the-badge&logo=swagger)](http://localhost:8080/rakbank/event-management-service/rest/api/swagger-ui/index.html)  |
+| **Notification Service**      | [![Swagger](https://img.shields.io/badge/Swagger-Notification%20Service-green?style=for-the-badge&logo=swagger)](http://localhost:8080/notification-service/swagger-ui.html)  |
+| **Account Management Service**| [![Swagger](https://img.shields.io/badge/Swagger-Account%20Management-yellow?style=for-the-badge&logo=swagger)](http://localhost:8080/rakbank/account-management-service/rest/api/swagger-ui/index.html)  |
+| **Payment Service**           | [![Swagger](https://img.shields.io/badge/Swagger-Payment%20Service-red?style=for-the-badge&logo=swagger)](http://localhost:8080/event-payment-service/rest/api/swagger-ui/index.html)   |
+| **Booking Management Service**| [![Swagger](https://img.shields.io/badge/Swagger-Booking%20Management-orange?style=for-the-badge&logo=swagger)](http://localhost:8080/rakbank/event-booking-service/rest/api/swagger-ui/index.html) |
 ## Copyright
+
+
 
 Released under the Apache License 2.0. See the [LICENSE](https://github.com/codecentric/springboot-sample-app/blob/master/LICENSE) file.
