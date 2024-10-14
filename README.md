@@ -38,8 +38,8 @@ To run this project you would need:
 - [Docker](https://docs.docker.com/engine/install/)
 
 ## High Level Architecture Diagram
-<img src="https://github.com/nabeeltariqbhatti/rtabank-ems/blob/master/event-management-service/arch-diagram.svg" >
-![](https://github.com/nabeeltariqbhatti/rtabank-ems/blob/master/event-management-service/arch-diagram.svg)
+<img src="[https://github.com/nabeeltariqbhatti/rtabank-ems/blob/master/event-management-service/arch-diagram.svg](https://github.com/nabeeltariqbhatti/rtabank-ems/blob/master/event-management-service/arch-diagram.svg)](https://github.com/nabeeltariqbhatti/rtabank-ems/blob/master/event-management-service/arch-diagram.svg)" >
+![H][(https://github.com/nabeeltariqbhatti/rtabank-ems/blob/master/event-management-service/arch-diagram.svg)](https://github.com/nabeeltariqbhatti/rtabank-ems/blob/master/event-management-service/arch-diagram.svg)
 ## Run Instructions
 
   You can simply run docker compose file and everything will be ready:
