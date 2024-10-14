@@ -68,6 +68,8 @@ services:
 
   notification-service:
     image: nabeelbhatti/notifications-service
+    build:
+      context: .
     container_name: notifications-service
     ports:
       - "9094:9094"
@@ -81,10 +83,8 @@ services:
     restart: always
     environment:
       - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
+      - API_KEY=${API_KEY}
       - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
-      - HOST=smtp.sendgrid.net
-      - PASSWORD=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
-
 
   account-service:
     image: nabeelbhatti/account-management-service
