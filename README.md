@@ -80,9 +80,8 @@ To run the application one by one you  can follow these steps
 | Service                      | Swagger API                                                                                   |
 |------------------------------|------------------------------------------------------------------------------------------------|
 | **Event Management Service**  | [![Swagger](https://img.shields.io/badge/Swagger-Event%20Management-blue?style=for-the-badge&logo=swagger)](http://localhost:8080/rakbank/event-management-service/rest/api/swagger-ui/index.html)  |
-| **Notification Service**      | [![Swagger](https://img.shields.io/badge/Swagger-Notification%20Service-green?style=for-the-badge&logo=swagger)](http://localhost:8080/notification-service/swagger-ui.html)  |
 | **Account Management Service**| [![Swagger](https://img.shields.io/badge/Swagger-Account%20Management-yellow?style=for-the-badge&logo=swagger)](http://localhost:8080/rakbank/account-management-service/rest/api/swagger-ui/index.html)  |
-| **Payment Service**           | [![Swagger](https://img.shields.io/badge/Swagger-Payment%20Service-red?style=for-the-badge&logo=swagger)](http://localhost:8080/event-payment-service/rest/api/swagger-ui/index.html)   |
+| **Payment Service**           | [![Swagger](https://img.shields.io/badge/Swagger-Payment%20Service-red?style=for-the-badge&logo=swagger)](http://localhost:8080/rakbank/event-payment-service/rest/api/swagger-ui/index.html)   |
 | **Booking Management Service**| [![Swagger](https://img.shields.io/badge/Swagger-Booking%20Management-orange?style=for-the-badge&logo=swagger)](http://localhost:8080/rakbank/event-booking-service/rest/api/swagger-ui/index.html) |
 ## Copyright
 
