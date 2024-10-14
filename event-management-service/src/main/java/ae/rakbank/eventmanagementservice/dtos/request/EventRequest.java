@@ -2,7 +2,7 @@ package ae.rakbank.eventmanagementservice.dtos.request;
 
 import ae.rakbank.eventmanagementservice.model.Event;
 import jakarta.validation.constraints.*;
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -10,7 +10,11 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class EventRequest implements Serializable {
 
     @Serial
